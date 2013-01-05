@@ -15,26 +15,12 @@ from email.mime.nonmultipart import MIMENonMultipart
 import email
 import mimetypes
 
-import requests
 from requests.auth import AuthBase
-from requests.auth import HTTPBasicAuth
 
-from .exceptions import APIError, ContentTypeError
+from .exceptions import ContentTypeError
 
 
 log = logging.getLogger(__name__)
-
-
-PATHS = {
-    'access_token': 'oauth2/token',
-    'smsoutbound': 'sms/v2/smsoutbound',
-    'smsinbound': 'sms/v2/smsinbound',
-    'mmsoutbound': 'mms/v2/mmsoutbound',
-    'mmsinbound': 'mms/v2/mmsinbound',
-    'user_context': 'context/v2/users',
-    'location': 'location/v2/location',
-    'payment': 'payment/v2/payments'
-}
 
 
 class OAuth2(AuthBase):
@@ -49,97 +35,6 @@ class OAuth2(AuthBase):
     def __call__(self, r):
         r.headers['Authorization'] = 'Bearer ' + self.access_token
         return r
-
-
-class MakeRequest(object):
-    # session is a class attribute so the connection pool is shared among all instances of MakeRequest class
-    # and therefore all instances of Api and PartnerApi classes.
-    # Note that each MakeRequest instance has its own client_id, client_secret, access token and ssl_client_cert,
-    # so each instance deals with a set of credentials, while sharing the connection pool.
-    session = requests.Session()
-    session.verify = True
-
-    def __init__(self, client_id, client_secret, access_token=None, ssl_client_cert=None):
-        self.http_ba = HTTPBasicAuth(client_id, client_secret)
-        if access_token:
-            self.oauth2 = OAuth2(access_token)
-        self.ssl_client_cert = ssl_client_cert
-
-    def __call__(self, url, data=None, attachments=None, url_encoded=False, basic_auth=False):
-        '''
-        Build the API request and return the formatted result of the API call
-        '''
-
-        # Choose the authentication method
-        if self.ssl_client_cert:
-            auth = self.http_ba
-        else:
-            auth = self.http_ba if basic_auth else self.oauth2
-
-        # Build the request depending on the input parameters
-        if not data:
-            # GET
-            log.info('GETting from URL: {url}'.format(url=url))
-            resp = MakeRequest.session.get(url=url, auth=auth, cert=self.ssl_client_cert)
-        elif isinstance(data, dict):
-            # POST
-            if not attachments:
-                # It's not an MMS
-                if not url_encoded:
-                    # Simple JSON body
-                    headers = {'content-type': 'application/json'}
-                    data = json.dumps(data, ensure_ascii=False)
-                else:
-                    # Data passed to Requests as a dictionary is automatically sent as url encoded
-                    # and the proper content-type header is automatically set
-                    headers = None
-            else:
-                # Multipart body (MMS)
-                body = build_mms_body(data, attachments)
-                data = body.as_string().split('\n\n', 1)[1]  # Skipping MIME headers
-                # get_content_type() and get_boundary() don't work until as_string() is called
-                headers = {'content-type': body.get_content_type() + '; boundary="' + body.get_boundary() + '"'}
-
-            log.info(('POSTting to URL: {url}\n'
-                      '  with body: {body}').format(url=url, body=data))
-            resp = MakeRequest.session.post(url=url, data=data, headers=headers, auth=auth,
-                                            cert=self.ssl_client_cert)
-        else:
-            raise TypeError("'data' param must be None or a dict")
-
-        log_str = ('Response:\n'
-                   '  Status code: {status_code}\n'
-                   '  Headers: {headers}\n'
-                   '  Body: {body}\n'
-                   '  Client id: {client_id}').format(status_code=resp.status_code,
-                                                      headers=resp.headers,
-                                                      body=resp.content,
-                                                      client_id=self.http_ba.username)
-        if not basic_auth:
-            log_str += '\n  Access token: {access_token}'.format(access_token=self.oauth2.access_token)
-        log.info(log_str)
-
-        # Process response
-        if resp.status_code in (200, 201):
-            if resp.headers['content-length'] == '0':
-                return None
-
-            content_type = resp.headers['content-type']
-            if not content_type:
-                raise ContentTypeError("HTTP response does not contain a Content-Type header")
-
-            if content_type.lower().startswith('application/json'):
-                return resp.json()
-            elif content_type.lower().startswith('multipart/mixed'):
-                root_fields, attachments = parse_mms_body(content_type, resp.content)
-                return root_fields, attachments
-            else:
-                raise ContentTypeError("Unsupported Content-Type '{0}' in HTTP response"
-                                       "(only application/json and multipart/mixed are supported".format(content_type))
-        elif resp.status_code == 204:
-            return None
-        else:
-            raise APIError(resp)
 
 
 def build_mms_body(metadata, attachments):

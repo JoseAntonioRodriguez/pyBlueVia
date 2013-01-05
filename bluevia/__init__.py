@@ -30,7 +30,7 @@ __copyright__ = 'Copyright 2012 Jose Antonio Rodríguez'
 
 from .api import Api
 from .partner_api import PartnerApi
-from .exceptions import *  # BVException, APIError, BadContentType
+from .exceptions import *
 
 import logging
 logging.getLogger(__name__).addHandler(logging.NullHandler())

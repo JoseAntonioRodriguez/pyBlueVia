@@ -33,6 +33,10 @@ class APIError(BVException):
         return msg
 
 
+class AccessTokenError(BVException):
+    pass
+
+
 class ContentTypeError(BVException):
     pass
 
