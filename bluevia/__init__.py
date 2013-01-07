@@ -24,6 +24,7 @@ More info about BlueVia at http://bluevia.com
 __title__ = 'pyBlueVia'
 __version__ = '0.1.0'
 __author__ = 'Jose Antonio Rodríguez'
+__email__ = 'jarf1975@gmail.com'
 __license__ = 'MIT'
 __copyright__ = 'Copyright 2012 Jose Antonio Rodríguez'
 
