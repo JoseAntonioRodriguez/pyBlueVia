@@ -43,7 +43,7 @@ def build_mms_body(metadata, attachments):
     # Add MMS metadata (root fields) as a json part
     part = MIMENonMultipart(_maintype='application', _subtype='json')
     part.add_header('Content-Transfer-Encoding', '8bit')
-    part.set_payload(payload=json.dumps(metadata, ensure_ascii=False), charset='utf-8')
+    part.set_payload(payload=json.dumps(metadata, ensure_ascii=False))
     del(part['MIME-Version'])
     body.attach(part)
 

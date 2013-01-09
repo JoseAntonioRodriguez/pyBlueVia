@@ -14,7 +14,7 @@ class APIError(BVException):
         self.http_status_code = resp.status_code
         self.http_reason = resp.reason  # TODO: Corregir acento: Petici�n incorrecta
         if resp.headers['content-type'] and resp.headers['content-type'].startswith('application/json'):
-            content = resp.json
+            content = resp.json()
             if 'exceptionId' in content:
                 self.id = content['exceptionId']
                 self.message = content['exceptionText']

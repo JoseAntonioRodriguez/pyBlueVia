@@ -23,7 +23,7 @@ class BaseApi(object):
     classdocs
     '''
 
-    PATHS = {
+    _PATHS = {
         'smsoutbound': 'sms/v2/smsoutbound',
         'smsinbound': 'sms/v2/smsinbound',
         'mmsoutbound': 'mms/v2/mmsoutbound',
@@ -121,7 +121,7 @@ class BaseApi(object):
                                                       headers=resp.headers,
                                                       body=resp.content,
                                                       client_id=self.http_ba.username)
-        if not basic_auth:
+        if hasattr(self, 'oauth2'):
             log_str += '\n  Access token: {access_token}'.format(access_token=self.oauth2.access_token)
         log.info(log_str)
 
@@ -148,7 +148,7 @@ class BaseApi(object):
             raise APIError(resp)
 
     def send_sms(self, from_, to, message, callback_url=None):
-        url = self.base_url + self.PATHS['smsoutbound']
+        url = self.base_url + self._PATHS['smsoutbound']
 
         # If 'to' contains only digits, it's an MSISDN, else it's an obfuscated identity
         data = {'to': 'tel:+' + to if to.isdigit() else 'alias:' + to,
@@ -167,11 +167,11 @@ class BaseApi(object):
         if sms_id.startswith('http://') or sms_id.startswith('https://'):
             url = sms_id + '?fields=to'
         else:
-            url = self.base_url + self.PATHS['smsoutbound'] + '/' + sms_id + '?fields=to'
+            url = self.base_url + self._PATHS['smsoutbound'] + '/' + sms_id + '?fields=to'
 
         resp = self._make_request(url)
 
-        return sanitize(resp['to'])
+        return sanitize(resp['to'][0])
 #        return [{u'to': to['address'][6:] if to['address'].startswith('alias:') else to['address'][5:],
 #                 u'status': to['status']} for to in resp['to']]
 
@@ -193,7 +193,7 @@ class BaseApi(object):
                                    "(only application/json is supported".format(content_type))
 
     def get_received_sms(self):
-        url = self.base_url + self.PATHS['smsinbound']
+        url = self.base_url + self._PATHS['smsinbound']
 
         resp = self._make_request(url, basic_auth=True)
 
@@ -233,7 +233,7 @@ class BaseApi(object):
 
     def send_mms(self, from_, to, subject, attachments, callback_url=None):
         # TODO: Test MMS w/o attachments
-        url = self.base_url + self.PATHS['mmsoutbound']
+        url = self.base_url + self._PATHS['mmsoutbound']
 
         # If 'to' contains only digits, it's an MSISDN, else it's an obfuscated identity
         metadata = {'to': 'tel:+' + to if to.isdigit() else 'alias:' + to,
@@ -252,16 +252,16 @@ class BaseApi(object):
         if mms_id.startswith('http://') or mms_id.startswith('https://'):
             url = mms_id + '?fields=to'
         else:
-            url = self.base_url + self.PATHS['mmsoutbound'] + '/' + mms_id + '?fields=to'
+            url = self.base_url + self._PATHS['mmsoutbound'] + '/' + mms_id + '?fields=to'
 
         resp = self._make_request(url)
 
-        return sanitize(resp['to'])
+        return sanitize(resp['to'][0])
 #        return [{u'to': to['address'][6:] if to['address'].startswith('alias:') else to['address'][5:],
 #                 u'status': to['status']} for to in resp['to']]
 
     def get_received_mms(self):
-        url = self.base_url + self.PATHS['mmsinbound']
+        url = self.base_url + self._PATHS['mmsinbound']
 
         resp = self._make_request(url, basic_auth=True)
 
@@ -272,7 +272,7 @@ class BaseApi(object):
 
     def get_received_mms_details(self, mms_id):
         # TODO: Test MMS w/o attachments
-        url = self.base_url + self.PATHS['mmsinbound'] + '/' + mms_id
+        url = self.base_url + self._PATHS['mmsinbound'] + '/' + mms_id
 
         metadata, attachments = self._make_request(url, basic_auth=True)
 

@@ -16,6 +16,11 @@ from .exceptions import AuthResponseError
 log = logging.getLogger(__name__)
 
 
+# OAuth scopes
+SMS_MT = 'sms.send'
+MMS_MT = 'mms.send'
+
+
 class Api(BaseApi):
     '''
     Api 2.0 API client
@@ -29,10 +34,6 @@ class Api(BaseApi):
     PATHS = {
         'access_token': 'oauth2/token'
     }
-
-    # OAuth scopes
-    SMS_MT = 'sms.send'
-    MMS_MT = 'mms.send'
 
     def __init__(self, client_id, client_secret, access_token=None, sandbox=False):
         '''
