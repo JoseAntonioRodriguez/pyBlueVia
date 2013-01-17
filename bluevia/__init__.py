@@ -16,7 +16,7 @@ pyBlueVia: A Python wrapper around the BlueVia API.
 
 More info about BlueVia at http://bluevia.com
 
-:copyright: (c) 2012 by Jose Antonio Rodríguez.
+:copyright: (c) 2013 by Jose Antonio Rodríguez.
 :license: MIT, see LICENSE for more details.
 
 """
@@ -26,7 +26,7 @@ __version__ = '0.1.0'
 __author__ = 'Jose Antonio Rodríguez'
 __email__ = 'jarf1975@gmail.com'
 __license__ = 'MIT'
-__copyright__ = 'Copyright 2012 Jose Antonio Rodríguez'
+__copyright__ = 'Copyright 2013 Jose Antonio Rodríguez'
 
 
 from .api import Api
