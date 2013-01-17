@@ -31,7 +31,6 @@ __copyright__ = 'Copyright 2012 Jose Antonio Rodríguez'
 
 from .api import Api
 from .api import SMS_MT, MMS_MT
-from .partner_api import PartnerApi
 from .exceptions import *
 
 import logging
