@@ -9,7 +9,7 @@ setup(
     name=bluevia.__title__,
     version=bluevia.__version__,
     description='A Python wrapper around the BlueVia API.',
-    long_description=open('README.md').read(),  # + '\n\n' + open('HISTORY.rst').read(),
+    long_description=open('README.rst').read(),  # + '\n\n' + open('HISTORY.rst').read(),
     author=bluevia.__author__,
     author_email=bluevia.__email__,
     url='https://github.com/JoseAntonioRodriguez/pyBlueVia',
