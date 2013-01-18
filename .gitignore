@@ -35,4 +35,7 @@ nosetests.xml
 .pydevproject
 .settings
 
+# Sphinx documentation
+_build
+
 TODO
