@@ -9,7 +9,7 @@ Then this authorization code is changed by the access token.
 
 """
 
-import subprocess
+import webbrowser
 
 import bluevia
 
@@ -30,7 +30,7 @@ if __name__ == '__main__':
     # and what to do with the authorization server
 
     # Open a browser to show the authorization page
-    subprocess.call(['firefox', '-new-window', uri])
+    webbrowser.open(uri, new=1, autoraise=True)
 
     # Ask the user to enter the auth code shown at the end of the authorization process
     auth_code = raw_input('Enter the auth code: ')
