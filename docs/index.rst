@@ -6,11 +6,23 @@
 Welcome to pyBlueVia's documentation!
 =====================================
 
-Contents:
+
+User guide
+----------
+
 
 .. toctree::
    :maxdepth: 2
 
+
+API Reference
+-------------
+
+
+.. toctree::
+   :maxdepth: 2
+   
+   api-reference
 
 
 Indices and tables

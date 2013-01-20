@@ -1,8 +1,15 @@
 # -*- coding: utf-8 -*-
 
-'''
+"""
+bluevia.api
+~~~~~~~~~~~
 
-'''
+This module implements the pyBlueVia API class.
+
+:copyright: (c) 2013 by Jose Antonio Rodríguez.
+:license: MIT, see LICENSE for more details.
+
+"""
 
 import logging
 #import uuid
@@ -22,9 +29,25 @@ MMS_MT = 'mms.send'
 
 
 class Api(BaseApi):
-    '''
-    Api 2.0 API client
-    '''
+    """This is the main pyBlueVia class, which wraps the BlueVia API.
+
+    The first step to use pyBlueVia is to create a :class:`Api <Api>` object.
+
+    :param client_id: OAuth 2.0 client id.
+    :param client_secret: OAuth 2.0 client secret.
+    :param access_token: (optional) OAuth 2.0 access token needed to send sms and mms or to get their delivery status.
+        If not provided here it can be set later setting the attribute :attr:`access_token` or during the OAuth
+        authorization process when calling :meth:`get_access_token`.
+    :param sandbox: (optional) set to ``True`` in order to use the BlueVia Sandbox feature. Default is ``False``.
+    :type sandbox: bool
+
+    Usage::
+
+        >>> import bluevia
+        >>> bluevia_client = bluevia.Api(CLIENT_ID, CLIENT_SECRET, ACCESS_TOKEN)
+        >>> bluevia_client.send_sms(to='34600000000', message='Hello world!')
+
+    """
 
     # API endpoints
     _API_BASE_URL = 'https://live-api.bluevia.com/'
@@ -49,6 +72,38 @@ class Api(BaseApi):
         self.oauth_redirect_uri = self.oauth_state = None
 
     def get_authorization_uri(self, scope, redirect_uri=None, state=None):
+        """Build the OAuth authorization URI.
+
+        As a first step to get an access token (needed to call some of the BlueVia APIs) the user must
+        be re directed to the Authorization Server, where she will authorize your app to make such calls
+        on her behalf.
+        The URI where the user must be redirected is built by this method based on the input parameters.
+
+        :param scope: scope (or array/tuple of scopes) for which the authorization is requested.
+            Supported scope values are: ``bluevia.SMS_MT`` and ``bluevia.MMS_MT`` which ask for permission
+            to send SMS and MMS, respectively.
+        :param redirect_uri: (optional) following the OAuth dance, after completing the authorization, the
+            user will be redirected to this URI (hosted by your app) including query parameters that could
+            be parsed by :meth:`parse_authorization_response` as a previous
+            step to get the access token. If this parameter is not provided, the Authorization Server will
+            show an Authorization Code that the user must provide to your app to continue with the process of
+            getting the access code.
+        :param state: (optional) if provided, the Authorization Server will include it in the redirect uri
+            and will be returned by :meth:`parse_authorization_response`. It may be used to correlate
+            authorization requests with their responses.
+        :rtype: the Authorization URI.
+
+        Usage::
+
+            >>> import bluevia
+            >>> bluevia_client = bluevia.Api(CLIENT_ID, CLIENT_SECRET)
+            >>> uri = bluevia_client.get_authorization_uri([bluevia.SMS_MT, bluevia.MMS_MT], 'https://mydomain.com/authorization_response', '3829167f-7f5e-42b7-944d-469f9662e738')
+            >>> print uri
+            https://id.tu.com/authorize?scope=sms.send+mms.send&state=3829167f-7f5e-42b7-944d-469f9662e738&redirect_uri=https%3A%2F%2Fmydomain.com%2Fauthorization_response&response_type=code&client_id=634dca1685cd2d1c8c5f2577d7595c2f
+
+        .. seealso:: OAuth 2.0 specification: http://tools.ietf.org/html/rfc6749#section-4.1.1.
+        """
+
         if isinstance(scope, str):
             scope = [scope]
         scope = ' '.join(scope)
@@ -73,6 +128,32 @@ class Api(BaseApi):
         return uri
 
     def parse_authorization_response(self, uri, state_to_check=None):
+        """Parse the OAuth authorization response and returns the Authorization Code and State.
+
+        If a redirect_uri parameter was provided to :meth:`get_authorization_uri`, the Authorization Server
+        redirect the user to that URI including the result of the authorization process as query parameters.
+        This method will parse that URI and returns the Authorization Code needed to get the access token and
+        the State provided to :meth:`get_authorization_uri`,
+        if any.
+
+        :param uri: the URI where the Authorization Server redirected the user after the authorization process.
+        :param state_to_check: (optional) if provided, this value will be checked against the value included in
+            the parsed URI. If they don't match a :exc:`AuthResponseError` exception will be raised.
+        :rtype: the Authorization Code to be used to call :meth:`get_access_token`, or a tuple containing the
+            Authorization Code and the State if it was included in the parsed URI.
+
+        Usage::
+
+            >>> import bluevia
+            >>> bluevia_client = bluevia.Api(CLIENT_ID, CLIENT_SECRET)
+            >>> uri = 'https://mydomain.com/authorization_response?code=TANf0C&state=3829167f-7f5e-42b7-944d-469f9662e738'
+            >>> auth_code, state = bluevia_client.parse_authorization_response(uri)
+            >>> print auth_code
+            TANf0C
+
+        .. seealso:: OAuth 2.0 specification: http://tools.ietf.org/html/rfc6749#section-4.1.2.
+        """
+
         state_to_check = state_to_check or self.oauth_state
 
         url_parts = urlparse.urlparse(uri)
