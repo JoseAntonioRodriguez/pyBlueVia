@@ -31,13 +31,13 @@ MMS_MT = 'mms.send'
 class Api(BaseApi):
     """This is the main pyBlueVia class, which wraps the BlueVia API.
 
-    The first step to use pyBlueVia is to create a :class:`Api <Api>` object.
+    The first step to use pyBlueVia is to create an :class:`Api <Api>` object.
 
-    :param client_id: OAuth 2.0 client id.
-    :param client_secret: OAuth 2.0 client secret.
-    :param access_token: (optional) OAuth 2.0 access token needed to send sms and mms or to get their delivery status.
-        If not provided here it can be set later setting the attribute :attr:`access_token` or during the OAuth
-        authorization process when calling :meth:`get_access_token`.
+    :param client_id: OAuth 2.0 *client id*.
+    :param client_secret: OAuth 2.0 *client secret*.
+    :param access_token: (optional) OAuth 2.0 *access token* needed to send sms and mms or to get their delivery
+        status. If not provided here it can be set later setting the attribute :attr:`access_token` or during
+        the OAuth authorization process when calling :meth:`get_access_token`.
     :param sandbox: (optional) set to ``True`` in order to use the BlueVia Sandbox feature. Default is ``False``.
     :type sandbox: bool
 
@@ -75,23 +75,22 @@ class Api(BaseApi):
         """Build the OAuth authorization URI.
 
         As a first step to get an access token (needed to call some of the BlueVia APIs) the user must
-        be re directed to the Authorization Server, where she will authorize your app to make such calls
+        be redirected to the Authorization Server, where she will authorize your app to make such calls
         on her behalf.
         The URI where the user must be redirected is built by this method based on the input parameters.
 
-        :param scope: scope (or array/tuple of scopes) for which the authorization is requested.
-            Supported scope values are: ``bluevia.SMS_MT`` and ``bluevia.MMS_MT`` which ask for permission
-            to send SMS and MMS, respectively.
+        :param scope: *scope* (or array/tuple of scopes) for which the authorization is requested.
+            Supported *scope* values are: ``bluevia.SMS_MT`` and ``bluevia.MMS_MT`` which ask for permission
+            to send SMS and MMS, respectively (and ask for the delivery status).
         :param redirect_uri: (optional) following the OAuth dance, after completing the authorization, the
             user will be redirected to this URI (hosted by your app) including query parameters that could
-            be parsed by :meth:`parse_authorization_response` as a previous
-            step to get the access token. If this parameter is not provided, the Authorization Server will
-            show an Authorization Code that the user must provide to your app to continue with the process of
-            getting the access code.
-        :param state: (optional) if provided, the Authorization Server will include it in the redirect uri
+            be parsed by :meth:`parse_authorization_response` as a previous step to get the *access token*.
+            If this parameter is not provided, the Authorization Server will show an *authorization code* that
+            the user must provide to your app to continue with the process of getting the *access token*.
+        :param state: (optional) if provided, the Authorization Server will include it in the *redirect uri*
             and will be returned by :meth:`parse_authorization_response`. It may be used to correlate
             authorization requests with their responses.
-        :rtype: the Authorization URI.
+        :rtype: the authorization URI.
 
         Usage::
 
@@ -101,7 +100,7 @@ class Api(BaseApi):
             >>> print uri
             https://id.tu.com/authorize?scope=sms.send+mms.send&state=3829167f-7f5e-42b7-944d-469f9662e738&redirect_uri=https%3A%2F%2Fmydomain.com%2Fauthorization_response&response_type=code&client_id=634dca1685cd2d1c8c5f2577d7595c2f
 
-        .. seealso:: OAuth 2.0 specification: http://tools.ietf.org/html/rfc6749#section-4.1.1.
+        .. seealso:: OAuth 2.0 specification: `Authorization Request <http://tools.ietf.org/html/rfc6749#section-4.1.1>`_.
         """
 
         if isinstance(scope, str):
@@ -128,19 +127,19 @@ class Api(BaseApi):
         return uri
 
     def parse_authorization_response(self, uri, state_to_check=None):
-        """Parse the OAuth authorization response and returns the Authorization Code and State.
+        """Parse the OAuth authorization response and returns the *Authorization Code* and *State*.
 
-        If a redirect_uri parameter was provided to :meth:`get_authorization_uri`, the Authorization Server
+        If a *redirect uri* parameter was provided to :meth:`get_authorization_uri`, the Authorization Server
         redirect the user to that URI including the result of the authorization process as query parameters.
-        This method will parse that URI and returns the Authorization Code needed to get the access token and
-        the State provided to :meth:`get_authorization_uri`,
+        This method will parse that URI and returns the *authorization code* needed to get the access token and
+        the *state* provided to :meth:`get_authorization_uri`,
         if any.
 
         :param uri: the URI where the Authorization Server redirected the user after the authorization process.
         :param state_to_check: (optional) if provided, this value will be checked against the value included in
             the parsed URI. If they don't match a :exc:`AuthResponseError` exception will be raised.
-        :rtype: the Authorization Code to be used to call :meth:`get_access_token`, or a tuple containing the
-            Authorization Code and the State if it was included in the parsed URI.
+        :rtype: the *authorization code* to be used to call :meth:`get_access_token`, or a tuple containing the
+            *authorization code* and the *state* if it was included in the parsed URI.
 
         Usage::
 
@@ -151,7 +150,7 @@ class Api(BaseApi):
             >>> print auth_code
             TANf0C
 
-        .. seealso:: OAuth 2.0 specification: http://tools.ietf.org/html/rfc6749#section-4.1.2.
+        .. seealso:: OAuth 2.0 specification: `Authorization Response <http://tools.ietf.org/html/rfc6749#section-4.1.2>`_.
         """
 
         state_to_check = state_to_check or self.oauth_state
@@ -192,6 +191,28 @@ class Api(BaseApi):
             raise AuthResponseError('Authorization Server response does not conform to OAuth 2.0')
 
     def get_access_token(self, authorization_code, redirect_uri=None):
+        """Exchange the given *authorization code* for an *access token*.
+
+        :param authorization_code: the *authorization code* returned by :meth:`parse_authorization_response` or
+            provided to your app by other means (for those apps not providing a *redirect uri* parameter to
+            :meth:`get_authorization_uri`).
+        :param redirect_uri: (optional) if provided, it must be the same passed to :meth:`get_authorization_uri`.
+            If not provided pyBlueVia remembers the one passed to :meth:`get_authorization_uri`, if any.
+        :rtype: the *access token* to be used to call BlueVia APIs, valid for the requested *scopes*. The returned
+            access token is also stored in the :attr:`access_token` attribute.
+
+        Usage::
+
+            >>> import bluevia
+            >>> bluevia_client = bluevia.Api(CLIENT_ID, CLIENT_SECRET)
+            >>> access_token = bluevia_client.get_access_token('TANf0C')
+            >>> print access_token
+            079b8f16c9a159c0d7e2fb0fcfe58d40
+
+        .. seealso:: OAuth 2.0 specification: `Access Token Request <http://tools.ietf.org/html/rfc6749#section-4.1.3>`_
+               and `Access Token Response <http://tools.ietf.org/html/rfc6749#section-4.1.4>`_.
+        """
+
         redirect_uri = redirect_uri or self.oauth_redirect_uri
 
         url = self.base_url + self.PATHS['access_token']

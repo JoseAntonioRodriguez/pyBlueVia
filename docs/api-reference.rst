@@ -13,8 +13,12 @@ Api class
 
 .. autoclass:: Api(client_id, client_secret[, access_token, sandbox=False])
 
-   .. automethod:: Api.get_authorization_uri(scope[, redirect_uri[, state]])
-   .. automethod:: Api.parse_authorization_response(uri[, state_to_check])
+   .. autoattribute:: client_id
+   .. autoattribute:: client_secret
+   .. autoattribute:: access_token
+   .. automethod:: get_authorization_uri(scope[, redirect_uri[, state]])
+   .. automethod:: parse_authorization_response(uri[, state_to_check])
+   .. automethod:: get_access_token(authorization_code[, redirect_uri])
 
 
 

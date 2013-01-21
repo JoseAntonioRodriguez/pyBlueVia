@@ -49,14 +49,20 @@ class BaseApi(object):
 
     @property
     def client_id(self):
+        """ OAuth *client id* set when creating the :class:`Api` object (read only). """
         return self.http_ba.username
 
     @property
     def client_secret(self):
+        """ OAuth *client secret* set when creating the :class:`Api` object (read only). """
         return self.http_ba.password
 
     @property
     def access_token(self):
+        """ OAuth *access token* provided when creating the :class:`Api` object, or fetched through
+        :meth:`get_access_token`. It can also be set asigning a value to this attribute.
+        """
+
         try:
             return self.oauth2.access_token
         except AttributeError:
@@ -68,9 +74,7 @@ class BaseApi(object):
             self.oauth2 = OAuth2(access_token)
 
     def _make_request(self, url, data=None, attachments=None, url_encoded=False, basic_auth=False):
-        '''
-        Build the API request and return the formatted result of the API call
-        '''
+        """ Build the API request and return the formatted result of the API call """
 
         # Choose the authentication method
         if self.ssl_client_cert:
