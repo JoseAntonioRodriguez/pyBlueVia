@@ -234,23 +234,180 @@ class Api(BaseApi):
         return access_token
 
     def send_sms(self, to, message, callback_url=None):
+        """Send a SMS.
+
+        :param to: the phone number (or obfuscated identity) to where the SMS will be sent.
+        :param message: the SMS text.
+        :param callback_url: (optional) if included, BlueVia will send delivery status notifications to
+            that URL, that could be parsed using :meth:`parse_delivery_status`.
+        :returns: A unique id representing the sent SMS. It can be used to call :meth:`get_sms_delivery_status`.
+
+        .. note:: This method needs an *access token*.
+
+        Usage::
+
+            >>> import bluevia
+            >>> bluevia_client = bluevia.Api(CLIENT_ID, CLIENT_SECRET, ACCESS_TOKEN)
+            >>> sms_id = bluevia_client.send_sms(to='34600000000', message='Hello world!', callback_url='https://mydomain.com/delivery_status')
+
+        """
         return BaseApi.send_sms(self, from_=None, to=to, message=message, callback_url=callback_url)
 
     def get_sms_delivery_status(self, sms_id):
+        """Ask for the delivery status of a sent SMS.
+
+        :param sms_id: the SMS id returned by :meth:`send_sms`.
+        :returns: A dictionary with the following keys:
+
+            * *address*: phone number (or obfuscated identity) to which the message was sent.
+            * *status*: delivery status.
+
+        .. note:: This method needs an *access token*.
+
+        Usage::
+
+            >>> import bluevia
+            >>> bluevia_client = bluevia.Api(CLIENT_ID, CLIENT_SECRET, ACCESS_TOKEN)
+            >>> sms_id = bluevia_client.send_sms(to='34600000000', message='Hello world!')
+            >>> delivery_status = bluevia_client.get_sms_delivery_status(sms_id)
+            >>> print delivery_status
+            {u'status': u'delivered', u'address': u'34600000000'}
+
+        """
         return BaseApi.get_sms_delivery_status(self, sms_id=sms_id)
 
     def get_received_sms(self):
+        """Get the list of incoming SMS that have not been retrieved yet.
+
+        Incoming SMS are those sent to a BlueVia short number using your app's keyword as the first word
+        in the text. Once those SMS has been retrieved they are deleted from the server.
+
+        :returns: A list of dictionaries (one per SMS) with the following keys:
+
+            * *id*: SMS id.
+            * *from*: phone number (or obfuscated identity) from which the SMS was sent.
+            * *obfuscated*: a ``bool`` indicating whether the ``from`` is obfuscated or not.
+            * *to*: short number to which the SMS was sent.
+            * *message*: SMS text, including the keyword.
+            * *timestamp*: date and time of when the SMS was sent.
+
+        Usage::
+
+            >>> import bluevia
+            >>> bluevia_client = bluevia.Api(CLIENT_ID, CLIENT_SECRET)
+            >>> sms_list = bluevia_client.get_received_sms()
+            >>> print sms_list
+            [{u'obfuscated': False, u'from': u'34600000000', u'timestamp': datetime.datetime(2012, 12, 27, 16, 17, 42, 418000), u'to': u'34217040', u'message': u'keyword First SMS', u'id': u'97286813874922402286'},
+            {u'obfuscated': False, u'from': u'34600000000', u'timestamp': datetime.datetime(2012, 12, 27, 16, 18, 26, 845000), u'to': u'34217040', u'message': u'keyword Second SMS', u'id': u'87728496828692402123'}]
+
+        """
         return BaseApi.get_received_sms(self)
 
     def send_mms(self, to, subject, attachments, callback_url=None):
+        """Send a MMS.
+
+        :param to: the phone number (or obfuscated identity) to where the MMS will be sent.
+        :param subject: the MMS subject.
+        :param attachments: a list of attachments to be sent inside the MMS. Each attachment can be:
+
+            * A string, if the attachment is textual content.
+            * A file-like object.
+            * A tuple with two elements:
+
+              * A string with the attachment *content type*.
+              * The attachment itself.
+
+        :param callback_url: (optional) if included, BlueVia will send delivery status notifications to
+            that URL, that could be parsed using :meth:`parse_delivery_status`.
+        :returns: A unique id representing the sent MMS. It can be used to call :meth:`get_mms_delivery_status`.
+
+        .. note:: This method needs an *access token*.
+
+        Usage::
+
+            >>> import bluevia
+            >>> bluevia_client = bluevia.Api(CLIENT_ID, CLIENT_SECRET, ACCESS_TOKEN)
+            >>> mms_id = bluevia_client.send_mms(to='34600000000', subject='Hello world!', callback_url='https://mydomain.com/delivery_status',
+                                                 attachments=('Look at this pictures',
+                                                              open('picture.gif', 'rb'),
+                                                              ('image/gif', 'GIF89a[...]')))
+
+        """
         return BaseApi.send_mms(self, from_=None, to=to, subject=subject,
                                 attachments=attachments, callback_url=callback_url)
 
     def get_mms_delivery_status(self, mms_id):
+        """Ask for the delivery status of a sent MMS.
+
+        :param mms_id: the MMS id returned by :meth:`send_mms`.
+        :returns: A dictionary with the following keys:
+
+            * *address*: phone number (or obfuscated identity) to which the message was sent.
+            * *status*: delivery status.
+
+        .. note:: This method needs an *access token*.
+
+        Usage::
+
+            >>> import bluevia
+            >>> bluevia_client = bluevia.Api(CLIENT_ID, CLIENT_SECRET, ACCESS_TOKEN)
+            >>> mms_id = bluevia_client.send_mms(to='34600000000', subject='Hello world!', callback_url='https://mydomain.com/delivery_status',
+                                                 attachments=('Look at this pictures',
+                                                              open('picture.gif', 'rb'),
+                                                              ('image/gif', 'GIF89a[...]')))
+            >>> delivery_status = bluevia_client.get_mms_delivery_status(mms_id)
+            >>> print delivery_status
+            {u'status': u'delivered', u'address': u'34600000000'}
+
+        """
         return BaseApi.get_mms_delivery_status(self, mms_id=mms_id)
 
     def get_received_mms(self):
+        """Get the list of incoming MMS that have not been retrieved yet.
+
+        Incoming MMS are those sent to a BlueVia short number using your app's keyword as the first word
+        in the subject (or in the first text attachment). Once those MMS has been retrieved they are deleted
+        from the server.
+
+        :returns: A list of MMS id. The actual content of each MMS must be retrieved with
+            :meth:`get_received_mms_details`.
+
+        Usage::
+
+            >>> import bluevia
+            >>> bluevia_client = bluevia.Api(CLIENT_ID, CLIENT_SECRET)
+            >>> mms_list = bluevia_client.get_received_mms()
+            >>> print mms_list
+            [u'97286813874922402286',u'87728496828692402123']
+
+        """
         return BaseApi.get_received_mms(self)
 
     def get_received_mms_details(self, mms_id):
+        """Get the content (metadata and attachment) of an incoming MMS.
+
+        :param mms_id: the MMS id returned by :meth:`get_received_mms`.
+        :returns: A dictionary with the following keys:
+
+            * *id*: MMS id.
+            * *from*: phone number (or obfuscated identity) from which the MMS was sent.
+            * *obfuscated*: a ``bool`` indicating whether the ``from`` is obfuscated or not.
+            * *to*: short number to which the MMS was sent.
+            * *subject*: MMS subject, including the keyword.
+            * *timestamp*: date and time of when the MMS was sent.
+            * *attachments*: an array of tuples (one per attachment) containing:
+
+              * the Content-Type of the attachment.
+              * the attachment itself.
+
+        Usage::
+
+            >>> import bluevia
+            >>> bluevia_client = bluevia.Api(CLIENT_ID, CLIENT_SECRET)
+            >>> mms_list = bluevia_client.get_received_mms()
+            >>> mms = bluevia_client.get_received_mms_details(mms_list[0])
+            >>> print mms
+            {u'obfuscated': False, u'from': u'34600000000', u'attachments': [('text/plain', 'Look at this picture'), ('image/gif', 'GIF89a[...]')], u'timestamp': datetime.datetime(2012, 12, 28, 10, 39, 5, 242000), u'to': u'34217040', u'id': u'2515357468066729', u'subject': u'keyword Photo'}
+
+        """
         return BaseApi.get_received_mms_details(self, mms_id=mms_id)

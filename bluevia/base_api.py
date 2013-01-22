@@ -425,7 +425,7 @@ class BaseApi(object):
             * *attachments*: an array of tuples (one per attachment) containing:
 
               * the Content-Type of the attachment.
-              * the attachmennt itself.
+              * the attachment itself.
 
         Usage::
 
