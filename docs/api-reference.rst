@@ -33,11 +33,12 @@ Api class
 
 Exceptions
 ----------
- 
+
 .. autoexception:: BVException
 
 .. autoexception:: APIError()
    :members:
+   :member-order: bysource
 
 .. autoexception:: ContentTypeError
 
