@@ -1,9 +1,15 @@
 # -*- coding: utf-8 -*-
 
-'''
+"""
+bluevia.base_api
+~~~~~~~~~~~~~~~~
 
-'''
+This module implements the base class to be extended by subclases that implement BlueVia API wrappers.
 
+:copyright: (c) 2013 by Jose Antonio Rodríguez.
+:license: MIT, see LICENSE for more details.
+
+"""
 
 import logging
 import json
@@ -19,9 +25,15 @@ log = logging.getLogger(__name__)
 
 
 class BaseApi(object):
-    '''
-    classdocs
-    '''
+
+    """Base class to be extended by subclases that wrap BlueVia API.
+
+    It implements:
+    * Access to attributes through properties.
+    * :meth:`_make_request` method which encapsulate HTTP requests and responses to BlueVia API.
+    * Methods for messaging APIs, which are common to public and partner APIs.
+
+    """
 
     _PATHS = {
         'smsoutbound': 'sms/v2/smsoutbound',
@@ -31,16 +43,13 @@ class BaseApi(object):
     }
 
     # session is a class attribute so the connection pool is shared among all instances of BaseApi class
-    # and its subclasses (Api and PartnerApi).
-    # Note that each Api or PartnerApi instance has its own client_id, client_secret, access token and ssl_client_cert,
+    # and its subclasses.
+    # Note that each subclass instance has its own client_id, client_secret, access token and ssl_client_cert,
     # so each instance deals with a set of credentials, while sharing the connection pool.
     session = requests.Session()
     session.verify = True
 
     def __init__(self, base_url, client_id, client_secret, access_token=None, ssl_client_cert=None):
-        '''
-        Constructor
-        '''
         self.base_url = base_url
         self.http_ba = HTTPBasicAuth(client_id, client_secret)
         if access_token:
@@ -61,8 +70,8 @@ class BaseApi(object):
     def access_token(self):
         """ OAuth *access token* provided when creating the :class:`Api` object, or fetched through
         :meth:`get_access_token`. It can also be set asigning a value to this attribute.
-        """
 
+        """
         try:
             return self.oauth2.access_token
         except AttributeError:
@@ -74,6 +83,7 @@ class BaseApi(object):
             self.oauth2 = OAuth2(access_token)
 
     def _make_request(self, url, data=None, attachments=None, url_encoded=False, basic_auth=False):
+
         """ Build the API request and return the formatted result of the API call """
 
         # Choose the authentication method
@@ -152,6 +162,13 @@ class BaseApi(object):
             raise APIError(resp)
 
     def send_sms(self, from_, to, message, callback_url=None):
+
+        """Base method to send SMS.
+
+        This method can be extended by child classes to implement SMS sending.
+
+        """
+
         url = self.base_url + self._PATHS['smsoutbound']
 
         # If 'to' contains only digits, it's an MSISDN, else it's an obfuscated identity
@@ -168,6 +185,13 @@ class BaseApi(object):
         return resp['id']
 
     def get_sms_delivery_status(self, sms_id):
+
+        """Base method to ask for the delivery status of a sent SMS.
+
+        This method can be extended by child classes to implement SMS delivery status query.
+
+        """
+
         if sms_id.startswith('http://') or sms_id.startswith('https://'):
             url = sms_id + '?fields=to'
         else:
@@ -197,6 +221,13 @@ class BaseApi(object):
                                    "(only application/json is supported".format(content_type))
 
     def get_received_sms(self):
+
+        """Base method to get received SMS.
+
+        This method can be extended by child classes to implement received SMS retrieving.
+
+        """
+
         url = self.base_url + self._PATHS['smsinbound']
 
         resp = self._make_request(url, basic_auth=True)
@@ -236,6 +267,13 @@ class BaseApi(object):
 #        return sms
 
     def send_mms(self, from_, to, subject, attachments, callback_url=None):
+
+        """Base method to send MMS.
+
+        This method can be extended by child classes to implement MMS sending.
+
+        """
+
         # TODO: Test MMS w/o attachments
         url = self.base_url + self._PATHS['mmsoutbound']
 
@@ -253,6 +291,13 @@ class BaseApi(object):
         return resp['id']
 
     def get_mms_delivery_status(self, mms_id):
+
+        """Base method to ask for the delivery status of a sent SMS.
+
+        This method can be extended by child classes to implement SMS delivery status query.
+
+        """
+
         if mms_id.startswith('http://') or mms_id.startswith('https://'):
             url = mms_id + '?fields=to'
         else:
@@ -265,6 +310,14 @@ class BaseApi(object):
 #                 u'status': to['status']} for to in resp['to']]
 
     def get_received_mms(self):
+
+        """Base method to get received MMS.
+
+        This method can be extended by child classes to implement received MMS retrieving.
+        Note that this method only returns the list of received MMS ids, and not its contents.
+
+        """
+
         url = self.base_url + self._PATHS['mmsinbound']
 
         resp = self._make_request(url, basic_auth=True)
@@ -275,6 +328,13 @@ class BaseApi(object):
             return []
 
     def get_received_mms_details(self, mms_id):
+
+        """Base method to get the content of a received MMS.
+
+        This method can be extended by child classes to implement received MMS's content retrieving.
+
+        """
+
         # TODO: Test MMS w/o attachments
         url = self.base_url + self._PATHS['mmsinbound'] + '/' + mms_id
 

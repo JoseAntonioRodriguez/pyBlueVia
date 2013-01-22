@@ -29,6 +29,7 @@ MMS_MT = 'mms.send'
 
 
 class Api(BaseApi):
+
     """This is the main pyBlueVia class, which wraps the BlueVia API.
 
     The first step to use pyBlueVia is to create an :class:`Api <Api>` object.
@@ -59,10 +60,6 @@ class Api(BaseApi):
     }
 
     def __init__(self, client_id, client_secret, access_token=None, sandbox=False):
-        '''
-        Constructor
-        '''
-
         base_url = self._SB_API_BASE_URL if sandbox else self._API_BASE_URL
         self.auth_base_url = self._AUTH_BASE_URL
 
@@ -72,6 +69,7 @@ class Api(BaseApi):
         self.oauth_redirect_uri = self.oauth_state = None
 
     def get_authorization_uri(self, scope, redirect_uri=None, state=None):
+
         """Build the OAuth authorization URI.
 
         As a first step to get an access token (needed to call some of the BlueVia APIs) the user must
@@ -101,6 +99,7 @@ class Api(BaseApi):
             https://id.tu.com/authorize?scope=sms.send+mms.send&state=3829167f-7f5e-42b7-944d-469f9662e738&redirect_uri=https%3A%2F%2Fmydomain.com%2Fauthorization_response&response_type=code&client_id=634dca1685cd2d1c8c5f2577d7595c2f
 
         .. seealso:: OAuth 2.0 specification: `Authorization Request <http://tools.ietf.org/html/rfc6749#section-4.1.1>`_.
+
         """
 
         if isinstance(scope, str):
@@ -127,6 +126,7 @@ class Api(BaseApi):
         return uri
 
     def parse_authorization_response(self, uri, state_to_check=None):
+
         """Parse the OAuth authorization response and returns the *Authorization Code* and *State*.
 
         If a *redirect uri* parameter was provided to :meth:`get_authorization_uri`, the Authorization Server
@@ -151,6 +151,7 @@ class Api(BaseApi):
             TANf0C
 
         .. seealso:: OAuth 2.0 specification: `Authorization Response <http://tools.ietf.org/html/rfc6749#section-4.1.2>`_.
+
         """
 
         state_to_check = state_to_check or self.oauth_state
@@ -191,6 +192,7 @@ class Api(BaseApi):
             raise AuthResponseError('Authorization Server response does not conform to OAuth 2.0')
 
     def get_access_token(self, authorization_code, redirect_uri=None):
+
         """Exchange the given *authorization code* for an *access token*.
 
         :param authorization_code: the *authorization code* returned by :meth:`parse_authorization_response` or
@@ -211,6 +213,7 @@ class Api(BaseApi):
 
         .. seealso:: OAuth 2.0 specification: `Access Token Request <http://tools.ietf.org/html/rfc6749#section-4.1.3>`_
                and `Access Token Response <http://tools.ietf.org/html/rfc6749#section-4.1.4>`_.
+
         """
 
         redirect_uri = redirect_uri or self.oauth_redirect_uri
