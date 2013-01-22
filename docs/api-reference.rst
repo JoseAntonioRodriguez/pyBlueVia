@@ -19,6 +19,9 @@ Api class
    .. automethod:: get_authorization_uri(scope[, redirect_uri[, state]])
    .. automethod:: parse_authorization_response(uri[, state_to_check])
    .. automethod:: get_access_token(authorization_code[, redirect_uri])
+   .. automethod:: parse_delivery_status
+   .. automethod:: parse_received_sms
+   .. automethod:: parse_received_mms
 
 
 

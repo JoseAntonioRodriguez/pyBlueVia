@@ -205,6 +205,30 @@ class BaseApi(object):
 
     @staticmethod
     def parse_delivery_status(content_type, content):
+
+        """Parse a delivery status notification sent by BlueVia to your app.
+
+        When sending a SMS or MMS, if the parameter *callback_url* is provided, BlueVia will send
+        delivery status notifications to that URL. You should implement an HTTP server that listen to
+        that URL to receive these notifications.
+
+        :param content_type: the *Content Type* of the request sent by BlueVia to the *callback URL*.
+        :param content: the entire body of the request sent by BlueVia to the *callback URL*.
+        :returns: A dictionary with the following keys:
+
+            * *id*: SMS/MMS id (the same returned when sending the message).
+            * *address*: phone number (or obfuscated identity) to which the message was sent.
+            * *status*: delivery status.
+
+        Usage::
+
+            >>> import bluevia
+            >>> delivery_status = bluevia.Api.parse_delivery_status(content_type, content)
+            >>> print delivery_status
+            {u'status': u'delivered', u'id': u'97286813874922402286', u'address': u'34600000000'}
+
+        """
+
         if content_type.startswith('application/json'):
             try:
                 delivery_status = json.loads(content)
@@ -245,6 +269,33 @@ class BaseApi(object):
 
     @staticmethod
     def parse_received_sms(content_type, content):
+
+        """Parse a SMS notification sent by BlueVia to your app.
+
+        You can configure BlueVia to send incoming SMS notifications to your app at bluevia.com,
+        providing a URL and (optionally) the server certificate you use to listen to BlueVia.
+
+        :param content_type: the *Content Type* of the request sent by BlueVia to the provisioned URL.
+            Both ``application/json`` and ``application/xml`` are supported.
+        :param content: the entire body of the request sent by BlueVia to the provisioned URL.
+        :returns: A dictionary with the following keys:
+
+            * *id*: SMS id.
+            * *from*: phone number (or obfuscated identity) from which the SMS was sent.
+            * *obfuscated*: a ``bool`` indicating whether the ``from`` is obfuscated or not.
+            * *to*: short number to which the SMS was sent.
+            * *message*: SMS text, including the keyword.
+            * *timestamp*: date and time of when the SMS was sent.
+
+        Usage::
+
+            >>> import bluevia
+            >>> sms = bluevia.Api.parse_received_sms(content_type, content)
+            >>> print sms
+            {u'obfuscated': False, u'from': u'34600000000', u'timestamp': datetime.datetime(2012, 12, 27, 16, 17, 42, 418000), u'to': u'34217040', u'message': u'keyword Hello world!', u'id': u'97286813874922402286'}
+
+        """
+
         if content_type.startswith('application/json'):
             try:
                 sms = json.loads(content)
@@ -354,6 +405,37 @@ class BaseApi(object):
 
     @staticmethod
     def parse_received_mms(content_type, content):
+
+        """Parse a MMS notification sent by BlueVia to your app.
+
+        You can configure BlueVia to send incoming MMS notifications to your app at bluevia.com,
+        providing a URL and (optionally) the server certificate you use to listen to BlueVia.
+
+        :param content_type: the *Content Type* of the request sent by BlueVia to the provisioned URL.
+        :param content: the entire body of the request sent by BlueVia to the provisioned URL
+            (including the MIME attachments).
+        :returns: A dictionary with the following keys:
+
+            * *id*: MMS id.
+            * *from*: phone number (or obfuscated identity) from which the MMS was sent.
+            * *obfuscated*: a ``bool`` indicating whether the ``from`` is obfuscated or not.
+            * *to*: short number to which the MMS was sent.
+            * *subject*: MMS subject, including the keyword.
+            * *timestamp*: date and time of when the MMS was sent.
+            * *attachments*: an array of tuples (one per attachment) containing:
+
+              * the Content-Type of the attachment.
+              * the attachmennt itself.
+
+        Usage::
+
+            >>> import bluevia
+            >>> mms = bluevia.Api.parse_received_mms(content_type, content)
+            >>> print mms
+            {u'obfuscated': False, u'from': u'34600000000', u'attachments': [('text/plain', 'Look at this picture'), ('image/gif', 'GIF89a[...]')], u'timestamp': datetime.datetime(2012, 12, 28, 10, 39, 5, 242000), u'to': u'34217040', u'id': u'2515357468066729', u'subject': u'keyword Photo'}
+
+        """
+
         metadata, attachments = parse_mms_body(content_type, content)
 
         mms = sanitize(metadata)

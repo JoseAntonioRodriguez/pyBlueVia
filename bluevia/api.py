@@ -88,7 +88,7 @@ class Api(BaseApi):
         :param state: (optional) if provided, the Authorization Server will include it in the *redirect uri*
             and will be returned by :meth:`parse_authorization_response`. It may be used to correlate
             authorization requests with their responses.
-        :rtype: the authorization URI.
+        :returns: The authorization URI.
 
         Usage::
 
@@ -138,7 +138,7 @@ class Api(BaseApi):
         :param uri: the URI where the Authorization Server redirected the user after the authorization process.
         :param state_to_check: (optional) if provided, this value will be checked against the value included in
             the parsed URI. If they don't match a :exc:`AuthResponseError` exception will be raised.
-        :rtype: the *authorization code* to be used to call :meth:`get_access_token`, or a tuple containing the
+        :returns: The *authorization code* to be used to call :meth:`get_access_token`, or a tuple containing the
             *authorization code* and the *state* if it was included in the parsed URI.
 
         Usage::
@@ -200,7 +200,7 @@ class Api(BaseApi):
             :meth:`get_authorization_uri`).
         :param redirect_uri: (optional) if provided, it must be the same passed to :meth:`get_authorization_uri`.
             If not provided pyBlueVia remembers the one passed to :meth:`get_authorization_uri`, if any.
-        :rtype: the *access token* to be used to call BlueVia APIs, valid for the requested *scopes*. The returned
+        :returns: The *access token* to be used to call BlueVia APIs, valid for the requested *scopes*. The returned
             access token is also stored in the :attr:`access_token` attribute.
 
         Usage::
