@@ -50,7 +50,7 @@ class MyHTTPRequestHandler(BaseHTTPRequestHandler):
 
         elif url_parts.path == '/authorization_response':
             # Parse the authorization response to get the authorization code.
-            auth_code = MyHTTPRequestHandler.bluevia_client.parse_authorization_response(self.path)
+            auth_code, state = bluevia.Api.parse_authorization_response(self.path)
 
             # Get an access token which will let the app to send SMS and MMS.
             access_token = MyHTTPRequestHandler.bluevia_client.get_access_token(auth_code)

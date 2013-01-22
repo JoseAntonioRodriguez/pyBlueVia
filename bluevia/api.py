@@ -125,7 +125,8 @@ class Api(BaseApi):
 
         return uri
 
-    def parse_authorization_response(self, uri, state_to_check=None):
+    @staticmethod
+    def parse_authorization_response(uri, state_to_check=None):
 
         """Parse the OAuth authorization response and returns the *Authorization Code* and *State*.
 
@@ -137,7 +138,7 @@ class Api(BaseApi):
 
         :param uri: the URI where the Authorization Server redirected the user after the authorization process.
         :param state_to_check: (optional) if provided, this value will be checked against the value included in
-            the parsed URI. If they don't match a :exc:`AuthResponseError` exception will be raised.
+            the parsed URI, if any. If they don't match a :exc:`AuthResponseError` exception will be raised.
         :returns: The *authorization code* to be used to call :meth:`get_access_token`, or a tuple containing the
             *authorization code* and the *state* if it was included in the parsed URI.
 
@@ -154,8 +155,6 @@ class Api(BaseApi):
 
         """
 
-        state_to_check = state_to_check or self.oauth_state
-
         url_parts = urlparse.urlparse(uri)
         query_params = urlparse.parse_qs(url_parts.query, keep_blank_values=True, strict_parsing=False)
 
@@ -166,20 +165,22 @@ class Api(BaseApi):
             else:
                 code = code[0]
 
-            if state_to_check:
-                if 'state' in query_params:
-                    state = query_params['state']
-                    if len(state) > 1:
-                        raise AuthResponseError("More than one value for 'state' parameter")
-                    else:
-                        state = state[0]
+            if 'state' in query_params:
+                state = query_params['state']
+                if len(state) > 1:
+                    raise AuthResponseError("More than one value for 'state' parameter")
                 else:
-                    raise AuthResponseError("'state' parameter not found")
+                    state = state[0]
+            else:
+                state = None
 
-                if state_to_check != state:
-                    raise AuthResponseError("'state' parameters do not match")
+            if state_to_check and state_to_check != state:
+                raise AuthResponseError("'state' does not match")
 
-            return code
+            if state:
+                return code, state
+            else:
+                return code
 
         elif 'error' in query_params:
             error = query_params['error'][0]
