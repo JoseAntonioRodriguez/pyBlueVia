@@ -34,4 +34,13 @@ Api class
 Exceptions
 ----------
  
+.. autoexception:: BVException
 
+.. autoexception:: APIError()
+   :members:
+
+.. autoexception:: ContentTypeError
+
+.. autoexception:: AccessTokenError
+
+.. autoexception:: AuthResponseError

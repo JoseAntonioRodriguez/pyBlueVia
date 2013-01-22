@@ -69,7 +69,7 @@ class BaseApi(object):
     @property
     def access_token(self):
         """ OAuth *access token* provided when creating the :class:`Api` object, or fetched through
-        :meth:`get_access_token`. It can also be set asigning a value to this attribute.
+        :meth:`get_access_token`. It can also be set assigning a value to this attribute.
 
         """
         try:
