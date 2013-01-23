@@ -14,7 +14,15 @@
 """
 pyBlueVia: A Python wrapper around the BlueVia API.
 
-More info about BlueVia at http://bluevia.com
+pyBlueVia implements an Api class which wraps the BlueVia APIs. It offers methods for:
+
+* Managing OAuth 2.0 authorization process for APIs which need an *access token*.
+* Sending SMS and MMS.
+* Asking for the delivery status of sent SMS/MMS.
+* Retrieve SMS/MMS sent to your app.
+* Parsing notifications (delivery status and incoming SMS/MMS) coming from BlueVia.
+
+More info about BlueVia APIs at http://bluevia.com
 
 :copyright: (c) 2013 by Jose Antonio Rodríguez.
 :license: MIT, see LICENSE for more details.
@@ -38,11 +46,10 @@ logging.getLogger(__name__).addHandler(logging.NullHandler())
 
 
 def add_stderr_logger(level=logging.DEBUG):
-    """
-    Helper for quickly adding a StreamHandler to the logger. Useful for
-    debugging.
+    """Helper for quickly adding a StreamHandler to the logger. Useful for debugging.
 
     Returns the handler after adding it.
+
     """
     # This method needs to be in this __init__.py to get the __name__ correct
     # even if pyBlueVia is vendored within another package.
