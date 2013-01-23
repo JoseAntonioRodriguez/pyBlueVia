@@ -5,8 +5,7 @@ API Reference
 
 .. module:: bluevia
 
-Find here the detailed description of every class, method and parameter
-of the pyBlueVia API.
+Find here the detailed description of pyBlueVia classes, methods and exceptions.
 
 Api class
 ---------

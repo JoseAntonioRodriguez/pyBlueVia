@@ -29,12 +29,12 @@ More info about BlueVia APIs at http://bluevia.com
 
 """
 
-__title__ = 'pyBlueVia'
-__version__ = '0.1.0'
-__author__ = 'Jose Antonio Rodríguez'
-__email__ = 'jarf1975@gmail.com'
-__license__ = 'MIT'
-__copyright__ = 'Copyright 2013 Jose Antonio Rodríguez'
+__title__ = u'pyBlueVia'
+__version__ = u'0.1.0'
+__author__ = u'Jose Antonio Rodríguez'
+__email__ = u'jarf1975@gmail.com'
+__license__ = u'MIT'
+__copyright__ = u'(c) 2013 Jose Antonio Rodríguez'
 
 
 from .api import Api

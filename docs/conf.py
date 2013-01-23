@@ -17,7 +17,7 @@ import sys, os
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 sys.path.insert(0, os.path.abspath('..'))
-from bluevia import __version__
+import bluevia
 
 # -- General configuration -----------------------------------------------------
 
@@ -41,15 +41,15 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'pyBlueVia'
-copyright = u'2013, Jose Antonio Rodríguez'
+project = bluevia.__title__
+copyright = bluevia.__copyright__
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
 # built documents.
 #
 # The short X.Y version.
-version = __version__
+version = bluevia.__version__
 # The full version, including alpha/beta/rc tags.
 release = version
 
@@ -139,7 +139,7 @@ html_static_path = ['_static']
 #html_additional_pages = {}
 
 # If false, no module index is generated.
-#html_domain_indices = True
+html_domain_indices = False
 
 # If false, no index is generated.
 #html_use_index = True
