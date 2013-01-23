@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
 
-'''
+"""
+bluevia.utils
+~~~~~~~~~~~~~
 
-'''
+This module contains a set of classes and functions internally used by pyBlueVia.
 
+"""
 
 import logging
 import json
@@ -24,9 +27,10 @@ log = logging.getLogger(__name__)
 
 
 class OAuth2(AuthBase):
-    """
-    This is a very very simple implementation of OAuth2 to attach an
+
+    """This is a very very simple implementation of OAuth2 to attach an
     OAuth2 bearer token Authorization header to the given Request object.
+
     """
 
     def __init__(self, access_token):
@@ -38,6 +42,14 @@ class OAuth2(AuthBase):
 
 
 def build_mms_body(metadata, attachments):
+
+    """Build a MMS body based on metadata and attachments.
+
+    MMS body is built as a multipart/mixed body whose first part is the metadata's JSON representation
+    and the other parts are the attachments.
+
+    """
+
     body = MIMEMultipart(_subtype='mixed')
 
     # Add MMS metadata (root fields) as a json part
@@ -83,6 +95,9 @@ def build_mms_body(metadata, attachments):
 
 
 def parse_mms_body(content_type, body):
+
+    """Parse a MMS body passed as a multipart/mixed body and returns metadata and attachments.  """
+
     mime_header = 'Content-Type: ' + content_type + '\n'\
                   'MIME-Version: 1.0\n\n'
     body = email.message_from_string(mime_header + body)
@@ -118,6 +133,14 @@ def parse_mms_body(content_type, body):
 
 
 def xml_to_dict(xml, keys):
+
+    """Parse an XML document and returns a dictionary containing the specified keys.
+
+    This is not a generic XML to dict parser, but a simpel implementation that search a set of specific
+    XML tags that become dictionary keys.
+
+    """
+
     try:
         if not isinstance(xml, unicode):
             xml = unicode(xml, 'utf-8')
@@ -134,10 +157,14 @@ def xml_to_dict(xml, keys):
 
 
 def sanitize(output):
-    # Change dictionary values as follows:
-    #   - remove 'tel:+'/'alias:' prefixes from 'to'/'from'/'address' keys' values
-    #   - add 'obfuscated' key when 'from' key is present
-    #   - convert 'timestamp' keys' values to datetime object
+
+    """Sanitize a dictionary or a list of dictionaries as follows:
+
+       * remove 'tel:+'/'alias:' prefixes from 'to'/'from'/'address' keys' values
+       * add 'obfuscated' key when 'from' key is present
+       * convert 'timestamp' keys' values to datetime object
+
+    """
 
     if isinstance(output, dict):
         for (k, v) in output.items():

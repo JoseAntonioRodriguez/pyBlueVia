@@ -4,7 +4,7 @@
 bluevia.exceptions
 ~~~~~~~~~~~~~~~~~~
 
-This module contains the set of pyBlueVia' exceptions.
+This module contains the set of pyBlueVia's exceptions.
 
 """
 
