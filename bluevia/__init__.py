@@ -34,7 +34,7 @@ __version__ = u'0.1.0'
 __author__ = u'Jose Antonio Rodríguez'
 __email__ = u'jarf1975@gmail.com'
 __license__ = u'MIT'
-__copyright__ = u'(c) 2013 Jose Antonio Rodríguez'
+__copyright__ = u'2013 Jose Antonio Rodríguez'
 
 
 from .api import Api

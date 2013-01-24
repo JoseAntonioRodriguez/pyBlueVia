@@ -3,8 +3,21 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to pyBlueVia's documentation!
-=====================================
+pyBlueVia: A Python wrapper around the `BlueVia <http://bluevia.com>`_ API
+==========================================================================
+
+Release v\ |version|.
+
+pyBlueVia is an :ref:`MIT Licensed <mit>` library, written in Python, for making easier the usage of
+`BlueVia <http://bluevia.com>`_ API.
+
+pyBlueVia implements an :class:`~.bluevia.Api` class which wraps the BlueVia API, offering methods for:
+
+* Managing OAuth 2.0 authorization process for APIs which need an *access token*.
+* Sending SMS and MMS.
+* Asking for the delivery status of sent SMS/MMS.
+* Retrieve SMS/MMS sent to your app.
+* Parsing notifications (delivery status and incoming SMS/MMS) coming from BlueVia.
 
 
 User guide
@@ -15,8 +28,8 @@ User guide
    :maxdepth: 2
 
 
-API Reference
--------------
+API Documentation
+-----------------
 
 
 .. toctree::
