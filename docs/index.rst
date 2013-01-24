@@ -8,7 +8,7 @@ pyBlueVia: A Python wrapper around the `BlueVia <http://bluevia.com>`_ API
 
 Release v\ |version|.
 
-pyBlueVia is an :ref:`MIT Licensed <mit>` library, written in Python, for making easier the usage of
+pyBlueVia is an :ref:`MIT Licensed <MIT>` library, written in Python, for making easier the usage of
 `BlueVia <http://bluevia.com>`_ API.
 
 pyBlueVia implements an :class:`~.bluevia.Api` class which wraps the BlueVia API, offering methods for:
@@ -20,9 +20,17 @@ pyBlueVia implements an :class:`~.bluevia.Api` class which wraps the BlueVia API
 * Parsing notifications (delivery status and incoming SMS/MMS) coming from BlueVia.
 
 
+Introduction
+------------
+
+.. toctree::
+   :maxdepth: 2
+   
+   introduction
+
+
 User guide
 ----------
-
 
 .. toctree::
    :maxdepth: 2
@@ -30,7 +38,6 @@ User guide
 
 API Documentation
 -----------------
-
 
 .. toctree::
    :maxdepth: 2
