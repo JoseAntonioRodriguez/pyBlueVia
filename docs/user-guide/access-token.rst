@@ -26,11 +26,11 @@ that code. Let's call this flow the "desktop flow".
 Web flow
 --------
 
-The first step is to redirect the user to the Authorization Server. pyBlueVia helps you
+The first step is to redirect the user to the Authorization Server. **pyBlueVia** helps you
 to build the Authorization Server's URL by using the :meth:`~.bluevia.Api.get_authorization_uri`
 method with the following parameters:
 
-* ``scope``: pyBlueVia support two scopes, which represent the BlueVia features to be authorized:
+* ``scope``: **pyBlueVia** support two scopes, which represent the BlueVia features to be authorized:
 
   - ``bluevia.SMS_MT``: ask for authorization to send SMS and query its delivery status.
   - ``bluevia.MMS_MT``: ask for authorization to send MMS and query its delivery status.
@@ -48,7 +48,7 @@ method with the following parameters:
    # Redirect to the returned uri
 
 
-Once the user has been redirected to the *redirect uri* hosted by your app, pyBlueVia can
+Once the user has been redirected to the *redirect uri* hosted by your app, **pyBlueVia** can
 help you to parse the query parameters, using the :meth:`~.bluevia.Api.parse_authorization_response`
 method.
 
@@ -58,7 +58,7 @@ This method returns the *auth code* along with the *state* (if it was included i
    uri = 'https://mydomain.com/authorization_response?code=TANf0C&state=3829167f-7f5e-42b7-944d-469f9662e738'
    auth_code, state = bluevia.Api.parse_authorization_response(uri)
 
-If this method is called with a *state* value as an input parameter, pyBlueVia will check that
+If this method is called with a *state* value as an input parameter, **pyBlueVia** will check that
 this value matches the one received in the URL, and raise an exception if they don't match::
 
    try:

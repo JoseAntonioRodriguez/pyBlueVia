@@ -292,6 +292,8 @@ class Api(BaseApi):
             * *message*: SMS text, including the keyword.
             * *timestamp*: date and time of when the SMS was sent.
 
+        If there are no incoming SMS to be returned, this method returns an empty list.
+
         Usage::
 
             >>> import bluevia
@@ -372,6 +374,8 @@ class Api(BaseApi):
 
         :returns: A list of MMS id. The actual content of each MMS must be retrieved with
             :meth:`get_received_mms_details`.
+
+        If there are no incoming SMS to be returned, this method returns an empty list.
 
         Usage::
 

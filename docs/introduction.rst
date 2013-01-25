@@ -6,7 +6,7 @@
 MIT License
 ===========
 
-PyBluevia is released under terms of `MIT License`_.
+**PyBluevia** is released under terms of `MIT License`_.
 
 This basically means that, being **open source**, it can be used in any
 commercial product even when the product itself is not open source. 
@@ -27,13 +27,13 @@ Installation
 
 .. highlight:: bash
 
-This part of the documentation covers the installation of pyBlueVia.
+This part of the documentation covers the installation of **pyBlueVia**.
 
 
 Pip
 ---
 
-Installing pyBlueVia is simple with `pip <http://www.pip-installer.org/>`_::
+Installing **pyBlueVia** is simple with `pip <http://www.pip-installer.org/>`_::
 
     $ pip install pyBlueVia
 
@@ -41,7 +41,7 @@ Installing pyBlueVia is simple with `pip <http://www.pip-installer.org/>`_::
 Get the code
 ------------
 
-pyBlueVia is developed on `GitHub <https://github.com/joseantoniorodriguez/pyBlueVia>`_.
+**pyBlueVia** is developed on `GitHub <https://github.com/joseantoniorodriguez/pyBlueVia>`_.
 
 You can either clone the public repository::
    

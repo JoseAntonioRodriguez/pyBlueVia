@@ -3,7 +3,7 @@
 Creating the API wrapper
 ========================
 
-The first step to use pyBlueVia is to create an :class:`~.bluevia.Api` object, which
+The first step to use **pyBlueVia** is to create an :class:`~.bluevia.Api` object, which
 represents a BlueVia app, identified by the credentials (*Client id* and *Client secret*)
 you got from BlueVia when creating an api-key. Those credentials must be passed
 to the :class:`~.bluevia.Api` constructor.
