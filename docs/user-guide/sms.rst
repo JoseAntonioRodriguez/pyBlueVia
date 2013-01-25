@@ -9,6 +9,11 @@ SMS features
 * Query the delivery status of a sent SMS
 * Get incomming SMS
 
+.. seealso:: Full examples of how to use SMS features can be found `here 
+   <https://github.com/JoseAntonioRodriguez/pyBlueVia/blob/master/examples/using_bluevia_api.py>`_
+   and `here
+   <https://github.com/JoseAntonioRodriguez/pyBlueVia/blob/master/examples/using_bluevia_api_notifications.py>`_.
+
 
 .. _sending-sms:
 

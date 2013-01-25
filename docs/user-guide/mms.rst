@@ -9,6 +9,11 @@ MMS features
 * Query the delivery status of a sent MMS
 * Get incomming MMS
 
+.. seealso:: Full examples of how to use MMS features can be found `here 
+   <https://github.com/JoseAntonioRodriguez/pyBlueVia/blob/master/examples/using_bluevia_api.py>`_
+   and `here
+   <https://github.com/JoseAntonioRodriguez/pyBlueVia/blob/master/examples/using_bluevia_api_notifications.py>`_.
+
 
 .. _sending-mms:
 
