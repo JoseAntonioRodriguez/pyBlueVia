@@ -21,13 +21,13 @@ Api class
    .. automethod:: send_sms(to, message[, callback_url])
    .. automethod:: get_sms_delivery_status
    .. automethod:: parse_delivery_status
-   .. automethod:: get_received_sms
-   .. automethod:: parse_received_sms
+   .. automethod:: get_incoming_sms
+   .. automethod:: parse_incoming_sms
    .. automethod:: send_mms(to, subject, attachments[, callback_url])
    .. automethod:: get_mms_delivery_status
-   .. automethod:: get_received_mms
-   .. automethod:: get_received_mms_details
-   .. automethod:: parse_received_mms
+   .. automethod:: get_incoming_mms
+   .. automethod:: get_incoming_mms_details
+   .. automethod:: parse_incoming_mms
 
 
 Exceptions

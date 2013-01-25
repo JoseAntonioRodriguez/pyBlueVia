@@ -4,7 +4,7 @@
 """
 This example shows how to deal with notifications coming from BlueVia regarding:
   - SMS/MMS delivery status
-  - Received SMS/MMS (SMS/MMS sent to a BlueVia shortcode with the keyword chosen during the app creation)
+  - Incoming SMS/MMS (SMS/MMS sent to a BlueVia shortcode with the keyword chosen during the app creation)
 
 """
 
@@ -53,16 +53,16 @@ class MyHTTPRequestHandler(BaseHTTPRequestHandler):
 
             self.send_response(200)
 
-        elif url_parts.path == '/received_messaging':
+        elif url_parts.path == '/incoming_messaging':
             if content_type.startswith('application/'):
-                # Parse a notification conveying a received SMS
-                sms = bluevia.Api.parse_received_sms(content_type, content)
+                # Parse a notification conveying a incoming SMS
+                sms = bluevia.Api.parse_incoming_sms(content_type, content)
 
                 # Do something with sms
 
             elif content_type.startswith('multipart/'):
-                # Parse a notification conveying a received MMS
-                mms = bluevia.Api.parse_received_mms(content_type, content)
+                # Parse a notification conveying a incoming MMS
+                mms = bluevia.Api.parse_incoming_mms(content_type, content)
 
                 # Do something with mms
 

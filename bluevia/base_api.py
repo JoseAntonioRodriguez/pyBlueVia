@@ -244,11 +244,11 @@ class BaseApi(object):
             raise ContentTypeError("Unsupported Content-Type '{0}' "
                                    "(only application/json is supported".format(content_type))
 
-    def get_received_sms(self):
+    def get_incoming_sms(self):
 
-        """Base method to get received SMS.
+        """Base method to get incoming SMS.
 
-        This method can be extended by child classes to implement received SMS retrieving.
+        This method can be extended by child classes to implement incoming SMS retrieving.
 
         """
 
@@ -268,7 +268,7 @@ class BaseApi(object):
             return []
 
     @staticmethod
-    def parse_received_sms(content_type, content):
+    def parse_incoming_sms(content_type, content):
 
         """Parse a SMS notification sent by BlueVia to your app.
 
@@ -290,7 +290,7 @@ class BaseApi(object):
         Usage::
 
             >>> import bluevia
-            >>> sms = bluevia.Api.parse_received_sms(content_type, content)
+            >>> sms = bluevia.Api.parse_incoming_sms(content_type, content)
             >>> print sms
             {u'obfuscated': False, u'from': u'34600000000', u'timestamp': datetime.datetime(2012, 12, 27, 16, 17, 42, 418000), u'to': u'34217040', u'message': u'keyword Hello world!', u'id': u'97286813874922402286'}
 
@@ -360,12 +360,12 @@ class BaseApi(object):
 #        return [{u'to': to['address'][6:] if to['address'].startswith('alias:') else to['address'][5:],
 #                 u'status': to['status']} for to in resp['to']]
 
-    def get_received_mms(self):
+    def get_incoming_mms(self):
 
-        """Base method to get received MMS.
+        """Base method to get incoming MMS.
 
-        This method can be extended by child classes to implement received MMS retrieving.
-        Note that this method only returns the list of received MMS ids, and not its contents.
+        This method can be extended by child classes to implement incoming MMS retrieving.
+        Note that this method only returns the list of incoming MMS ids, and not its contents.
 
         """
 
@@ -378,11 +378,11 @@ class BaseApi(object):
         else:
             return []
 
-    def get_received_mms_details(self, mms_id):
+    def get_incoming_mms_details(self, mms_id):
 
-        """Base method to get the content of a received MMS.
+        """Base method to get the content of a incoming MMS.
 
-        This method can be extended by child classes to implement received MMS's content retrieving.
+        This method can be extended by child classes to implement incoming MMS's content retrieving.
 
         """
 
@@ -404,7 +404,7 @@ class BaseApi(object):
 #                u'attachments': attachments}
 
     @staticmethod
-    def parse_received_mms(content_type, content):
+    def parse_incoming_mms(content_type, content):
 
         """Parse a MMS notification sent by BlueVia to your app.
 
@@ -430,7 +430,7 @@ class BaseApi(object):
         Usage::
 
             >>> import bluevia
-            >>> mms = bluevia.Api.parse_received_mms(content_type, content)
+            >>> mms = bluevia.Api.parse_incoming_mms(content_type, content)
             >>> print mms
             {u'obfuscated': False, u'from': u'34600000000', u'attachments': [('text/plain', 'Look at this picture'), ('image/gif', 'GIF89a[...]')], u'timestamp': datetime.datetime(2012, 12, 28, 10, 39, 5, 242000), u'to': u'34217040', u'id': u'2515357468066729', u'subject': u'keyword Photo'}
 

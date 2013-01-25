@@ -277,7 +277,7 @@ class Api(BaseApi):
         """
         return BaseApi.get_sms_delivery_status(self, sms_id=sms_id)
 
-    def get_received_sms(self):
+    def get_incoming_sms(self):
         """Get the list of incoming SMS that have not been retrieved yet.
 
         Incoming SMS are those sent to a BlueVia short number using your app's keyword as the first word
@@ -298,13 +298,13 @@ class Api(BaseApi):
 
             >>> import bluevia
             >>> bluevia_client = bluevia.Api(CLIENT_ID, CLIENT_SECRET)
-            >>> sms_list = bluevia_client.get_received_sms()
+            >>> sms_list = bluevia_client.get_incoming_sms()
             >>> print sms_list
             [{u'obfuscated': False, u'from': u'34600000000', u'timestamp': datetime.datetime(2012, 12, 27, 16, 17, 42, 418000), u'to': u'34217040', u'message': u'keyword First SMS', u'id': u'97286813874922402286'},
             {u'obfuscated': False, u'from': u'34600000000', u'timestamp': datetime.datetime(2012, 12, 27, 16, 18, 26, 845000), u'to': u'34217040', u'message': u'keyword Second SMS', u'id': u'87728496828692402123'}]
 
         """
-        return BaseApi.get_received_sms(self)
+        return BaseApi.get_incoming_sms(self)
 
     def send_mms(self, to, subject, attachments, callback_url=None):
         """Send a MMS.
@@ -365,7 +365,7 @@ class Api(BaseApi):
         """
         return BaseApi.get_mms_delivery_status(self, mms_id=mms_id)
 
-    def get_received_mms(self):
+    def get_incoming_mms(self):
         """Get the list of incoming MMS that have not been retrieved yet.
 
         Incoming MMS are those sent to a BlueVia short number using your app's keyword as the first word
@@ -373,7 +373,7 @@ class Api(BaseApi):
         from the server.
 
         :returns: A list of MMS id. The actual content of each MMS must be retrieved with
-            :meth:`get_received_mms_details`.
+            :meth:`get_incoming_mms_details`.
 
         If there are no incoming SMS to be returned, this method returns an empty list.
 
@@ -381,17 +381,17 @@ class Api(BaseApi):
 
             >>> import bluevia
             >>> bluevia_client = bluevia.Api(CLIENT_ID, CLIENT_SECRET)
-            >>> mms_list = bluevia_client.get_received_mms()
+            >>> mms_list = bluevia_client.get_incoming_mms()
             >>> print mms_list
             [u'97286813874922402286',u'87728496828692402123']
 
         """
-        return BaseApi.get_received_mms(self)
+        return BaseApi.get_incoming_mms(self)
 
-    def get_received_mms_details(self, mms_id):
+    def get_incoming_mms_details(self, mms_id):
         """Get the content (metadata and attachment) of an incoming MMS.
 
-        :param mms_id: the MMS id returned by :meth:`get_received_mms`.
+        :param mms_id: the MMS id returned by :meth:`get_incoming_mms`.
         :returns: A dictionary with the following keys:
 
             * *id*: MMS id.
@@ -409,10 +409,10 @@ class Api(BaseApi):
 
             >>> import bluevia
             >>> bluevia_client = bluevia.Api(CLIENT_ID, CLIENT_SECRET)
-            >>> mms_list = bluevia_client.get_received_mms()
-            >>> mms = bluevia_client.get_received_mms_details(mms_list[0])
+            >>> mms_list = bluevia_client.get_incoming_mms()
+            >>> mms = bluevia_client.get_incoming_mms_details(mms_list[0])
             >>> print mms
             {u'obfuscated': False, u'from': u'34600000000', u'attachments': [('text/plain', 'Look at this picture'), ('image/gif', 'GIF89a[...]')], u'timestamp': datetime.datetime(2012, 12, 28, 10, 39, 5, 242000), u'to': u'34217040', u'id': u'2515357468066729', u'subject': u'keyword Photo'}
 
         """
-        return BaseApi.get_received_mms_details(self, mms_id=mms_id)
+        return BaseApi.get_incoming_mms_details(self, mms_id=mms_id)

@@ -91,7 +91,7 @@ There are two ways of getting incoming SMS:
 Polling
 ^^^^^^^
 
-In order to ask BlueVia for incoming SMS for you app, simply call the :meth:`~.bluevia.Api.get_received_sms`
+In order to ask BlueVia for incoming SMS for you app, simply call the :meth:`~.bluevia.Api.get_incoming_sms`
 method. It returns a list of dictionaries (one per SMS) with the following SMS data:
 
 * ``id``: Unique identifier representing this incoming SMS.
@@ -105,19 +105,19 @@ method. It returns a list of dictionaries (one per SMS) with the following SMS d
 
 ::
 
-   >>> sms = bluevia_client.get_received_sms()
+   >>> sms = bluevia_client.get_incoming_sms()
    >>> print sms
    {u'obfuscated': False, u'from': u'34600000000', u'timestamp': datetime.datetime(2012, 12, 27, 16, 17, 42, 418000), u'to': u'34217040', u'message': u'keyword Hello world!', u'id': u'97286813874922402286'}
 
 Note that once BlueVia has returned a set of incoming SMS, they are deleted from the server,
-so each call to :meth:`~.bluevia.Api.get_received_sms` always returns new SMS (if any).
+so each call to :meth:`~.bluevia.Api.get_incoming_sms` always returns new SMS (if any).
 
 .. _warning-obfuscation:
 
 .. warning:: Due to privacy reasons, some countries do not allow apps to see the phone number
    from which the SMS has been sent. In this cases BlueVia returns an *obfuscated identity*
    which uniquely (and anonymously) represents the sender, and even can be used as a receipt
-   when `sending SMS <sending-sms>`_. The ``obfuscated`` flag in the :meth:`~.bluevia.Api.get_received_sms`
+   when `sending SMS <sending-sms>`_. The ``obfuscated`` flag in the :meth:`~.bluevia.Api.get_incoming_sms`
    response indicates whether the ``from`` identity is obfuscated or not.
 
 
@@ -129,13 +129,13 @@ BlueVia short number, the first step is to edit your api-key at http://bluevia.c
 to configure the URL where your app will be listening to notifications.
 
 These notifications can be parsed by **pyBlueVia** to extract the incoming SMS information
-using the :meth:`~.bluevia.Api.parse_received_sms` method, passing the ``Content-Type``
+using the :meth:`~.bluevia.Api.parse_incoming_sms` method, passing the ``Content-Type``
 HTTP header value together with the body of the received HTTP request::
 
-   >>> sms = bluevia.Api.parse_received_sms(content_type, content)
+   >>> sms = bluevia.Api.parse_incoming_sms(content_type, content)
    >>> print sms
    {u'obfuscated': False, u'from': u'34600000000', u'timestamp': datetime.datetime(2012, 12, 27, 16, 17, 42, 418000), u'to': u'34217040', u'message': u'keyword Hello world!', u'id': u'97286813874922402286'}
  
 The returned dictionary is exactly the same that each element of the list returned by
-:meth:`~.bluevia.Api.get_received_sms`.
+:meth:`~.bluevia.Api.get_incoming_sms`.
 

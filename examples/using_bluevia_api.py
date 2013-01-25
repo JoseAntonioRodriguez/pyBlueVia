@@ -5,7 +5,7 @@
 This example shows how to use the BlueVia API to:
   - Send SMS/MMS
   - Ask for the delivery status of a sent SMS/MMS
-  - Get received SMS/MMS (SMS/MMS sent to a BlueVia shortcode with the keyword chosen during the app creation)
+  - Get incoming SMS/MMS (SMS/MMS sent to a BlueVia shortcode with the keyword chosen during the app creation)
 
 """
 
@@ -33,8 +33,8 @@ if __name__ == '__main__':
     print 'Delivery status for the SMS sent to {0}: {1}'.format(delivery_status['address'], delivery_status['status'])
 
     # Get SMSs sent to my app
-    received_sms = bluevia_client.get_received_sms()
-    for sms in received_sms:
+    incoming_sms = bluevia_client.get_incoming_sms()
+    for sms in incoming_sms:
         print 'Id:', sms['id']
         print 'From:', sms['from']
         print 'To:', sms['to']
@@ -52,9 +52,9 @@ if __name__ == '__main__':
     print 'Delivery status for the MMS sent to {0}: {1}'.format(delivery_status['address'], delivery_status['status'])
 
     # Get MMSs sent to my app
-    received_mms = bluevia_client.get_received_mms()
-    for mms_id in received_mms:
-        mms = bluevia_client.get_received_mms_details(mms_id)
+    incoming_mms = bluevia_client.get_incoming_mms()
+    for mms_id in incoming_mms:
+        mms = bluevia_client.get_incoming_mms_details(mms_id)
         print 'Id:', mms['id']
         print 'From:', mms['from']
         print 'To:', mms['to']
