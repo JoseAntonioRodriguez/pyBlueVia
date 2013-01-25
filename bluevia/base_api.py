@@ -208,7 +208,7 @@ class BaseApi(object):
 
         """Parse a delivery status notification sent by BlueVia to your app.
 
-        When sending a SMS or MMS, if the parameter *callback_url* is provided, BlueVia will send
+        When sending an SMS or MMS, if the parameter *callback_url* is provided, BlueVia will send
         delivery status notifications to that URL. You should implement an HTTP server that listen to
         that URL to receive these notifications.
 
@@ -270,7 +270,7 @@ class BaseApi(object):
     @staticmethod
     def parse_incoming_sms(content_type, content):
 
-        """Parse a SMS notification sent by BlueVia to your app.
+        """Parse an SMS notification sent by BlueVia to your app.
 
         You can configure BlueVia to send incoming SMS notifications to your app at bluevia.com,
         providing a URL and (optionally) the server certificate you use to listen to BlueVia.

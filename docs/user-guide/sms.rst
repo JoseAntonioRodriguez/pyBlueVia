@@ -5,29 +5,29 @@ SMS features
 
 **pyBlueVia** allows you to perform the following actions regarding SMS:
 
-* Send a SMS
+* Send an SMS
 * Query the delivery status of a sent SMS
 * Get incomming SMS
 
 
 .. _sending-sms:
 
-Sending a SMS
--------------
+Sending an SMS
+--------------
 
-Sending a SMS is as easy as calling the :meth:`~.bluevia.Api.send_sms` method passing the
+Sending an SMS is as easy as calling the :meth:`~.bluevia.Api.send_sms` method passing the
 recipient phone number and the text to be sent::
 
    sms_id = bluevia_client.send_sms(to='34600000000', message='Hello world!')
 
 This method returns an id which represents the sending, but it says nothing about whether
 the SMS has reached the recipient. **pyBlueVia** offers another method to :ref:`ask for the delivery
-status of a sent SMS <query-delivery-status>`.
+status of a sent SMS <query-sms-delivery-status>`.
 
 .. note:: This feature requires an *access token*.
 
 
-.. _query-delivery-status:
+.. _query-sms-delivery-status:
 
 Quering the delivery status of a sent SMS
 -----------------------------------------
@@ -78,7 +78,7 @@ returned by :meth:`~.bluevia.Api.send_sms`.
 Getting incoming SMS
 --------------------
 
-Each time someone sends a SMS to a `BlueVia short number`_ using your app keyword as the
+Each time someone sends an SMS to a `BlueVia short number`_ using your app keyword as the
 first word in the text, that SMS is available for being queried by your app.
 There are two ways of getting incoming SMS:
 
@@ -91,13 +91,13 @@ There are two ways of getting incoming SMS:
 Polling
 ^^^^^^^
 
-In order to ask BlueVia for incoming SMS for you app, simply call the :meth:`~.bluevia.Api.get_incoming_sms`
+In order to ask BlueVia for incoming SMS for your app, simply call the :meth:`~.bluevia.Api.get_incoming_sms`
 method. It returns a list of dictionaries (one per SMS) with the following SMS data:
 
 * ``id``: Unique identifier representing this incoming SMS.
 * ``from``: phone number from which the SMS was sent.
 * ``obfuscated``: a ``bool`` indicating whether the ``from`` is obfuscated or not
-  (see :ref:`warning <warning-obfuscation>` below).
+  (see :ref:`warning <warning-obfuscation-sms>` below).
 * ``to``: short number to which the SMS was sent.
 * ``message``: SMS text, including the keyword.
 * ``timestamp``: date and time of when the SMS was sent, represented as a Python
@@ -112,10 +112,10 @@ method. It returns a list of dictionaries (one per SMS) with the following SMS d
 Note that once BlueVia has returned a set of incoming SMS, they are deleted from the server,
 so each call to :meth:`~.bluevia.Api.get_incoming_sms` always returns new SMS (if any).
 
-.. _warning-obfuscation:
+.. _warning-obfuscation-sms:
 
 .. warning:: Due to privacy reasons, some countries do not allow apps to see the phone number
-   from which the SMS has been sent. In this cases BlueVia returns an *obfuscated identity*
+   from which the SMS has been sent. In those cases BlueVia returns an *obfuscated identity*
    which uniquely (and anonymously) represents the sender, and even can be used as a receipt
    when `sending SMS <sending-sms>`_. The ``obfuscated`` flag in the :meth:`~.bluevia.Api.get_incoming_sms`
    response indicates whether the ``from`` identity is obfuscated or not.

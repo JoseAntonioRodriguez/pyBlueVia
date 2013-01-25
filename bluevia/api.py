@@ -235,7 +235,7 @@ class Api(BaseApi):
         return access_token
 
     def send_sms(self, to, message, callback_url=None):
-        """Send a SMS.
+        """Send an SMS.
 
         :param to: the phone number (or obfuscated identity) to where the SMS will be sent.
         :param message: the SMS text.
@@ -317,8 +317,8 @@ class Api(BaseApi):
             * A file-like object.
             * A tuple with two elements:
 
-              * A string with the attachment *content type*.
-              * The attachment itself.
+              * A string with the attachment's *content type*.
+              * The attachment's binary content.
 
         :param callback_url: (optional) if included, BlueVia will send delivery status notifications to
             that URL, that could be parsed using :meth:`parse_delivery_status`.
@@ -375,7 +375,7 @@ class Api(BaseApi):
         :returns: A list of MMS id. The actual content of each MMS must be retrieved with
             :meth:`get_incoming_mms_details`.
 
-        If there are no incoming SMS to be returned, this method returns an empty list.
+        If there are no incoming MMS to be returned, this method returns an empty list.
 
         Usage::
 
@@ -402,8 +402,8 @@ class Api(BaseApi):
             * *timestamp*: date and time of when the MMS was sent.
             * *attachments*: an array of tuples (one per attachment) containing:
 
-              * the Content-Type of the attachment.
-              * the attachment itself.
+              * the attachment's *content type*.
+              * the attachment's binary content.
 
         Usage::
 
