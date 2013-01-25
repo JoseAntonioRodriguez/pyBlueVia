@@ -1,4 +1,6 @@
 
+.. title:: Introduction
+
 .. _`MIT`:
 
 MIT License

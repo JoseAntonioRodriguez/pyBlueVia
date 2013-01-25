@@ -35,6 +35,11 @@ User guide
 .. toctree::
    :maxdepth: 2
 
+   user-guide/api-wrapper
+   user-guide/access-token
+   user-guide/sms
+   user-guide/mms
+
 
 API Documentation
 -----------------
