@@ -9,9 +9,9 @@ MMS features
 * Query the delivery status of a sent MMS
 * Get incomming MMS
 
-.. seealso:: Full examples of how to use MMS features can be found `here 
+.. seealso:: Full examples of how to `use MMS features 
    <https://github.com/JoseAntonioRodriguez/pyBlueVia/blob/master/examples/using_bluevia_api.py>`_
-   and `here
+   and how to `deal with MMS notifications
    <https://github.com/JoseAntonioRodriguez/pyBlueVia/blob/master/examples/using_bluevia_api_notifications.py>`_.
 
 
@@ -98,6 +98,8 @@ Then BlueVia will send a notification to that URL. These notifications can be pa
 In this case the returned dictionary also includes an ``id`` field with the same value
 returned by :meth:`~.bluevia.Api.send_mms`.
 
+
+.. _getting-incoming-mms:
 
 Getting incoming MMS
 --------------------

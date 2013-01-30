@@ -1,10 +1,14 @@
 
 .. title:: Introduction
 
+Introduction
+============
+
+.. rst-class:: emphasize-children
 .. _`MIT`:
 
 MIT License
-===========
+-----------
 
 **PyBluevia** is released under terms of `MIT License`_.
 
@@ -15,15 +19,16 @@ commercial product even when the product itself is not open source.
 
 
 pyBlueVia License
------------------
+^^^^^^^^^^^^^^^^^
 
 .. include:: ../LICENSE
 
 
+.. rst-class:: emphasize-children
 .. _install:
 
 Installation
-============
+------------
 
 .. highlight:: bash
 
@@ -31,7 +36,7 @@ This part of the documentation covers the installation of **pyBlueVia**.
 
 
 Pip
----
+^^^
 
 Installing **pyBlueVia** is simple with `pip <http://www.pip-installer.org/>`_::
 
@@ -39,7 +44,7 @@ Installing **pyBlueVia** is simple with `pip <http://www.pip-installer.org/>`_::
 
 
 Get the code
-------------
+^^^^^^^^^^^^
 
 **pyBlueVia** is developed on `GitHub <https://github.com/joseantoniorodriguez/pyBlueVia>`_.
 

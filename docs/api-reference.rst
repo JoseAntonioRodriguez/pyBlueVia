@@ -7,6 +7,8 @@ API Reference
 
 Find here the detailed description of **pyBlueVia** classes, methods and exceptions.
 
+.. _`api-class`:
+
 Api class
 ---------
 
@@ -29,6 +31,8 @@ Api class
    .. automethod:: get_incoming_mms_details
    .. automethod:: parse_incoming_mms
 
+
+.. _`exceptions`:
 
 Exceptions
 ----------

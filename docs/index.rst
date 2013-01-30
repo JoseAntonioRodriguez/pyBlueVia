@@ -1,12 +1,16 @@
+:orphan:
+
 .. pyBlueVia documentation master file, created by
    sphinx-quickstart on Fri Jan 18 11:29:03 2013.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-pyBlueVia: A Python wrapper around the `BlueVia <http://bluevia.com>`_ API
-==========================================================================
+pyBlueVia v\ |version|
+======================
 
-Release v\ |version|.
+.. centered:: A Python wrapper around the BlueVia API
+
+----------------------------------------------
 
 **pyBlueVia** is an :ref:`MIT Licensed <MIT>` library, written in Python, for making
 easier the usage of `BlueVia <http://bluevia.com>`_ API.
@@ -21,40 +25,42 @@ offering methods for:
 * Parsing notifications (delivery status and incoming SMS/MMS) coming from BlueVia.
 
 
-Introduction
-------------
-
 .. toctree::
+   :hidden:
    :maxdepth: 2
    
    introduction
+   user-guide
+   api-reference
+
+
+Introduction
+------------
+
+* :ref:`MIT`
+* :ref:`install`
 
 
 User guide
 ----------
 
-.. toctree::
-   :maxdepth: 2
-
-   user-guide/api-wrapper
-   user-guide/access-token
-   user-guide/sms
-   user-guide/mms
+* :ref:`api-wrapper`
+* :ref:`access-token`
+* :ref:`sms`
+* :ref:`mms`
 
 
-API Documentation
------------------
+API Reference
+-------------
 
-.. toctree::
-   :maxdepth: 2
-   
-   api-reference
+* :ref:`api-class`
+* :ref:`exceptions`
 
 
-Indices and tables
-==================
+.. Indices and tables
+.. ==================
 
-* :ref:`genindex`
-* :ref:`search`
-
+.. * :ref:`genindex`
 .. * :ref:`modindex`
+.. * :ref:`search`
+
