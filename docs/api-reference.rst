@@ -7,6 +7,32 @@ API Reference
 
 Find here the detailed description of **pyBlueVia** classes, methods and exceptions.
 
+.. _`api-reference-summary`:
+
+Summary
+-------
+
+.. autosummary::
+   
+   Api
+   Api.client_id
+   Api.client_secret
+   Api.access_token
+   Api.get_authorization_uri
+   Api.parse_authorization_response
+   Api.get_access_token
+   Api.send_sms
+   Api.get_sms_delivery_status
+   Api.parse_delivery_status
+   Api.get_incoming_sms
+   Api.parse_incoming_sms
+   Api.send_mms
+   Api.get_mms_delivery_status
+   Api.get_incoming_mms
+   Api.get_incoming_mms_details
+   Api.parse_incoming_mms
+
+
 .. _`api-class`:
 
 Api class

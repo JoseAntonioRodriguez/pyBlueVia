@@ -1,3 +1,4 @@
+.. rst-class:: emphasize-children
 .. _sms-features:
 
 SMS features

@@ -30,7 +30,10 @@ import cloud_sptheme as csp
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['sphinx.ext.autodoc', 'cloud_sptheme.ext.relbar_toc', 'cloud_sptheme.ext.index_styling']
+extensions = ['sphinx.ext.autodoc',
+              'sphinx.ext.autosummary',
+              'cloud_sptheme.ext.relbar_toc',
+              'cloud_sptheme.ext.index_styling']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']

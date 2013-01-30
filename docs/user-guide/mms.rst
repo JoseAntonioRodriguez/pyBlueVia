@@ -1,3 +1,4 @@
+.. rst-class:: emphasize-children
 .. _mms-features:
 
 MMS features

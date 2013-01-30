@@ -1,3 +1,4 @@
+.. rst-class:: emphasize-children
 .. _getting-access-token:
 
 Getting an access token

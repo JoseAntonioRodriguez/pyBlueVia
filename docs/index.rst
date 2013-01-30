@@ -34,15 +34,15 @@ offering methods for:
    api-reference
 
 
-Introduction
-------------
+:ref:`Introduction <introduction>`
+----------------------------------
 
 * :ref:`MIT`
 * :ref:`install`
 
 
-User guide
-----------
+:ref:`User Guide <user-guide>`
+------------------------------
 
 * :ref:`api-wrapper`
 * :ref:`access-token`
@@ -50,9 +50,10 @@ User guide
 * :ref:`mms`
 
 
-API Reference
--------------
+:ref:`Api Reference <api-reference>`
+------------------------------------
 
+* :ref:`api-reference-summary`
 * :ref:`api-class`
 * :ref:`exceptions`
 
