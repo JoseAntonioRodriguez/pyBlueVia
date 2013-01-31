@@ -18,9 +18,9 @@ offering methods for:
 Installation
 ------------
 
-.. highlight:: bash
+To install **pyBlueVia**:
 
-To install **pyBlueVia**::
+.. code-block:: bash
 
     $ pip install pyBlueVia
 
@@ -28,10 +28,10 @@ To install **pyBlueVia**::
 Examples
 --------
 
-.. highlight:: python
-
 Those are a couple of examples about how to use **pyBlueVia** to send an SMS and query
-its delivery status::
+its delivery status:
+
+.. code-block:: python
 
     # Create the API wrapper
     bluevia_client = bluevia.Api(CLIENT_ID, CLIENT_SECRET, ACCESS_TOKEN)
