@@ -1,9 +1,7 @@
-pyBlueVia v\ |version|
-======================
+pyBlueVia: A Python wrapper around the BlueVia API
+==================================================
 
-.. centered:: A Python wrapper around the BlueVia API
-
-----------------------------------------------
+---------------------------------------------
 
 **pyBlueVia** is an MIT Licensed library, written in Python, for making
 easier the usage of `BlueVia <http://bluevia.com>`_ API.
@@ -30,7 +28,9 @@ To install **pyBlueVia**::
 Examples
 --------
 
-Those are a couple of examples about how to use **pyBlueVia* to send an SMS and query
+.. highlight:: python
+
+Those are a couple of examples about how to use **pyBlueVia** to send an SMS and query
 its delivery status::
 
     # Create the API wrapper
@@ -44,7 +44,7 @@ its delivery status::
     print 'Delivery status for the SMS sent to {0}: {1}'.format(delivery_status['address'],
                                                                 delivery_status['status'])
 
-You can see more usage examples `here <https://github.com/JoseAntonioRodriguez/pyBlueVia/tree/master/examples>`_
+You can see more usage examples `here <https://github.com/JoseAntonioRodriguez/pyBlueVia/tree/master/examples>`_.
 
 Take a look to the whole documentation at http://joseantoniorodriguez.github.com/pyBlueVia.
 
