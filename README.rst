@@ -46,5 +46,5 @@ its delivery status:
 
 You can see more usage examples `here <https://github.com/JoseAntonioRodriguez/pyBlueVia/tree/master/examples>`_.
 
-Take a look to the whole documentation at http://joseantoniorodriguez.github.com/pyBlueVia.
+Take a look to the whole documentation at https://pybluevia.readthedocs.org/.
 

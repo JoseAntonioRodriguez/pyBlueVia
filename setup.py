@@ -12,7 +12,7 @@ setup(
     long_description=open('README.rst').read(),  # + '\n\n' + open('HISTORY.rst').read(),
     author=bluevia.__author__,
     author_email=bluevia.__email__,
-    url='https://github.com/JoseAntonioRodriguez/pyBlueVia',
+    url='https://pybluevia.readthedocs.org/',
     keywords='bluevia api',
     packages=find_packages(),
     include_package_data=True,
