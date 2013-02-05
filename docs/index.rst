@@ -12,7 +12,7 @@ pyBlueVia v\ |version|
 
 ----------------------------------------------
 
-**pyBlueVia** is an :ref:`MIT Licensed <MIT>` library, written in Python, for making
+**pyBlueVia** is an :ref:`Apache2 Licensed <apache2>` library, written in Python, for making
 easier the usage of `BlueVia <http://bluevia.com>`_ API.
 
 **pyBlueVia** implements an :class:`~.bluevia.Api` class which wraps the BlueVia API,
@@ -37,7 +37,7 @@ offering methods for:
 :ref:`Introduction <introduction>`
 ----------------------------------
 
-* :ref:`MIT`
+* :ref:`apache2`
 * :ref:`install`
 
 

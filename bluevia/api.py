@@ -6,8 +6,8 @@ bluevia.api
 
 This module implements the pyBlueVia API class.
 
-:copyright: (c) 2013 by Jose Antonio Rodríguez.
-:license: MIT, see LICENSE for more details.
+:copyright: (c) 2013 Telefonica Investigación y Desarrollo, S.A.U.
+:license: Apache 2.0, see LICENSE for more details.
 
 """
 

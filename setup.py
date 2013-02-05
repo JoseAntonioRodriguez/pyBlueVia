@@ -13,7 +13,7 @@ setup(
     author=bluevia.__author__,
     author_email=bluevia.__email__,
     url='https://pybluevia.readthedocs.org/',
-    keywords='bluevia api',
+    keywords='bluevia api sms mms',
     packages=find_packages(),
     include_package_data=True,
     install_requires=['requests>=1.0.0'],
@@ -23,7 +23,7 @@ setup(
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
         'Natural Language :: English',
-        'License :: OSI Approved :: MIT License',
+        'License :: OSI Approved :: Apache Software License',
         'Programming Language :: Python',
         'Topic :: Software Development :: Libraries'
     ),

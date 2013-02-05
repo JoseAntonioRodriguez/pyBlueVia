@@ -24,17 +24,17 @@ pyBlueVia implements an Api class which wraps the BlueVia APIs. It offers method
 
 More info about BlueVia APIs at http://bluevia.com
 
-:copyright: (c) 2013 by Jose Antonio Rodríguez.
-:license: MIT, see LICENSE for more details.
+:copyright: (c) 2013 Telefonica Investigación y Desarrollo, S.A.U.
+:license: Apache 2.0, see LICENSE for more details.
 
 """
 
 __title__ = u'pyBlueVia'
 __version__ = u'0.1.0'
 __author__ = u'Jose Antonio Rodríguez'
-__email__ = u'jarf1975@gmail.com'
-__license__ = u'MIT'
-__copyright__ = u'2013 Jose Antonio Rodríguez'
+__email__ = u'jarf@tid.es'
+__license__ = u'Apache 2.0'
+__copyright__ = u'2013 Telefonica Investigación y Desarrollo, S.A.U'
 
 
 from .api import Api

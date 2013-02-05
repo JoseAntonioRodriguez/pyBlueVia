@@ -3,7 +3,7 @@ pyBlueVia: A Python wrapper around the BlueVia API
 
 ---------------------------------------------
 
-**pyBlueVia** is an MIT Licensed library, written in Python, for making
+**pyBlueVia** is an Apache2 Licensed library, written in Python, for making
 easier the usage of `BlueVia <http://bluevia.com>`_ API.
 
 **pyBlueVia** implements an ``Api`` class which wraps the BlueVia API,

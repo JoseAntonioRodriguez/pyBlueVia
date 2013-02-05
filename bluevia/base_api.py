@@ -6,8 +6,8 @@ bluevia.base_api
 
 This module implements the base class to be extended by subclases that implement BlueVia API wrappers.
 
-:copyright: (c) 2013 by Jose Antonio Rodríguez.
-:license: MIT, see LICENSE for more details.
+:copyright: (c) 2013 Telefonica Investigación y Desarrollo, S.A.U.
+:license: Apache 2.0, see LICENSE for more details.
 
 """
 

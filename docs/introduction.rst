@@ -6,17 +6,17 @@ Introduction
 ============
 
 .. rst-class:: emphasize-children
-.. _`MIT`:
+.. _`apache2`:
 
-MIT License
------------
+Apache2 License
+---------------
 
-**PyBluevia** is released under terms of `MIT License`_.
+**PyBluevia** is released under terms of `Apache2 License`_.
 
 This basically means that, being **open source**, it can be used in any
 commercial product even when the product itself is not open source. 
 
-.. _`MIT License`: http://opensource.org/licenses/MIT
+.. _`Apache2 License`: http://opensource.org/licenses/Apache-2.0
 
 
 pyBlueVia License
