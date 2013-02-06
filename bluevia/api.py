@@ -94,7 +94,9 @@ class Api(BaseApi):
 
             >>> import bluevia
             >>> bluevia_client = bluevia.Api(CLIENT_ID, CLIENT_SECRET)
-            >>> uri = bluevia_client.get_authorization_uri([bluevia.SMS_MT, bluevia.MMS_MT], 'https://mydomain.com/authorization_response', '3829167f-7f5e-42b7-944d-469f9662e738')
+            >>> uri = bluevia_client.get_authorization_uri([bluevia.SMS_MT, bluevia.MMS_MT],
+            ...                                            'https://mydomain.com/authorization_response',
+            ...                                            '3829167f-7f5e-42b7-944d-469f9662e738')
             >>> print uri
             https://id.tu.com/authorize?scope=sms.send+mms.send&state=3829167f-7f5e-42b7-944d-469f9662e738&redirect_uri=https%3A%2F%2Fmydomain.com%2Fauthorization_response&response_type=code&client_id=634dca1685cd2d1c8c5f2577d7595c2f
 
@@ -249,7 +251,8 @@ class Api(BaseApi):
 
             >>> import bluevia
             >>> bluevia_client = bluevia.Api(CLIENT_ID, CLIENT_SECRET, ACCESS_TOKEN)
-            >>> sms_id = bluevia_client.send_sms(to='34600000000', message='Hello world!', callback_url='https://mydomain.com/delivery_status')
+            >>> sms_id = bluevia_client.send_sms(to='34600000000', message='Hello world!',
+            ...                                  callback_url='https://mydomain.com/delivery_status')
 
         """
         return BaseApi.send_sms(self, from_=None, to=to, message=message, callback_url=callback_url)
@@ -330,10 +333,11 @@ class Api(BaseApi):
 
             >>> import bluevia
             >>> bluevia_client = bluevia.Api(CLIENT_ID, CLIENT_SECRET, ACCESS_TOKEN)
-            >>> mms_id = bluevia_client.send_mms(to='34600000000', subject='Hello world!', callback_url='https://mydomain.com/delivery_status',
-                                                 attachments=('Look at this pictures',
-                                                              open('picture.gif', 'rb'),
-                                                              ('image/gif', 'GIF89a[...]')))
+            >>> mms_id = bluevia_client.send_mms(to='34600000000', subject='Hello world!',
+            ...                                  callback_url='https://mydomain.com/delivery_status',
+            ...                                  attachments=('Look at this pictures',
+            ...                                               open('picture.gif', 'rb'),
+            ...                                               ('image/gif', 'GIF89a[...]')))
 
         """
         return BaseApi.send_mms(self, from_=None, to=to, subject=subject,
@@ -354,10 +358,11 @@ class Api(BaseApi):
 
             >>> import bluevia
             >>> bluevia_client = bluevia.Api(CLIENT_ID, CLIENT_SECRET, ACCESS_TOKEN)
-            >>> mms_id = bluevia_client.send_mms(to='34600000000', subject='Hello world!', callback_url='https://mydomain.com/delivery_status',
-                                                 attachments=('Look at this pictures',
-                                                              open('picture.gif', 'rb'),
-                                                              ('image/gif', 'GIF89a[...]')))
+            >>> mms_id = bluevia_client.send_mms(to='34600000000', subject='Hello world!',
+            ...                                  callback_url='https://mydomain.com/delivery_status',
+            ...                                  attachments=('Look at this pictures',
+            ...                                               open('picture.gif', 'rb'),
+            ...                                               ('image/gif', 'GIF89a[...]')))
             >>> delivery_status = bluevia_client.get_mms_delivery_status(mms_id)
             >>> print delivery_status
             {u'status': u'delivered', u'address': u'34600000000'}
