@@ -11,9 +11,9 @@ MMS features
 * Get incomming MMS
 
 .. seealso:: Full examples of how to `use MMS features 
-   <https://github.com/JoseAntonioRodriguez/pyBlueVia/blob/master/examples/using_bluevia_api.py>`_
+   <https://github.com/telefonicaid/pyBlueVia/blob/master/examples/using_bluevia_api.py>`_
    and how to `deal with MMS notifications
-   <https://github.com/JoseAntonioRodriguez/pyBlueVia/blob/master/examples/using_bluevia_api_notifications.py>`_.
+   <https://github.com/telefonicaid/pyBlueVia/blob/master/examples/using_bluevia_api_notifications.py>`_.
 
 
 .. _sending-mms:

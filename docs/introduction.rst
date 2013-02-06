@@ -47,19 +47,19 @@ Installing **pyBlueVia** is simple with `pip <http://www.pip-installer.org/>`_::
 Get the code
 ^^^^^^^^^^^^
 
-**pyBlueVia** is developed on `GitHub <https://github.com/joseantoniorodriguez/pyBlueVia>`_.
+**pyBlueVia** is developed on `GitHub <https://github.com/telefonicaid/pyBlueVia>`_.
 
 You can either clone the public repository::
    
-    $ git clone git://github.com/joseantoniorodriguez/pyBlueVia.git
+    $ git clone git://github.com/telefonicaid/pyBlueVia.git
 
-Download the `tarball <https://github.com/joseantoniorodriguez/pyBlueVia/tarball/master>`_::
+Download the `tarball <https://github.com/telefonicaid/pyBlueVia/tarball/master>`_::
 
-    $ curl -OL https://github.com/joseantoniorodriguez/pyBlueVia/tarball/master
+    $ curl -OL https://github.com/telefonicaid/pyBlueVia/tarball/master
 
-Or, download the `zipball <https://github.com/joseantoniorodriguez/pyBlueVia/zipball/master>`_::
+Or, download the `zipball <https://github.com/telefonicaid/pyBlueVia/zipball/master>`_::
 
-    $ curl -OL https://github.com/joseantoniorodriguez/pyBlueVia/zipball/master
+    $ curl -OL https://github.com/telefonicaid/pyBlueVia/zipball/master
 
 
 Once you have a copy of the source, you can embed it in your Python package,

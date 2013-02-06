@@ -79,7 +79,7 @@ After calling this method, the *access token* is also available through the
 authorization to use those BlueVia features covered by the requested *scopes*.
 
 .. seealso:: A full example of how to `get an access token using the web flow 
-   <https://github.com/JoseAntonioRodriguez/pyBlueVia/blob/master/examples/getting_access_token_web.py>`_.
+   <https://github.com/telefonicaid/pyBlueVia/blob/master/examples/getting_access_token_web.py>`_.
 
 
 Desktop flow
@@ -102,5 +102,5 @@ Then you can call the :meth:`~.bluevia.Api.get_access_token` method to get the *
    access_token = bluevia_client.get_access_token(auth_code)
 
 .. seealso:: A full example of how to `get an access token using the desktop flow 
-   <https://github.com/JoseAntonioRodriguez/pyBlueVia/blob/master/examples/getting_access_token_desktop.py>`_.
+   <https://github.com/telefonicaid/pyBlueVia/blob/master/examples/getting_access_token_desktop.py>`_.
 

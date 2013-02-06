@@ -44,7 +44,7 @@ its delivery status:
     print 'Delivery status for the SMS sent to {0}: {1}'.format(delivery_status['address'],
                                                                 delivery_status['status'])
 
-You can see more usage examples `here <https://github.com/JoseAntonioRodriguez/pyBlueVia/tree/master/examples>`_.
+You can see more usage examples `here <https://github.com/telefonicaid/pyBlueVia/tree/master/examples>`_.
 
 Take a look to the whole documentation at https://pybluevia.readthedocs.org/.
 
